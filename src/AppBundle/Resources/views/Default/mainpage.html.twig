@@ -1,0 +1,306 @@
+{% extends "AppBundle:Default:defaultbase.html.twig" %}
+
+
+{% block stylesheets %}
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 70%;
+        }
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .mypanel {
+            background-image: url("{{asset('bundles/app/images/c64loading.gif')}}");
+            min-height: 250px;
+            margin-left:auto;
+            margin-right:auto;
+        }
+        .centered {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>  
+
+{% endblock %} 
+
+
+
+{% block body %}
+
+    {#MODAL BOX#}
+
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">x</span>
+            <p id="modalContent" style="font-family:'Arcade Rounded';font-weight:normal;font-size:15px"></p>
+            <div class="centered">
+                <p><a href id="playUser" style="font-family:'Arcade Rounded'" class="btn btn-success btn-sm playUser" role="button">Play</a></p>
+                <p><a href id="notNow" style="font-family:'Arcade Rounded'" class="btn btn-danger btn-sm cancelButton" role="button">Not now!</a></p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+        <div style="min-height:10em;"></div>
+        <div class="col-md-12 textCentered">
+            <h1 class="centered" style="font-family:'Arcade Interlaced';font-weight:normal;font-size:42px">Connect four</h1>
+        </div>
+        <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+            <div class="col-md-6">
+                <a href="{{path('app_connecting')}}" class="btn btn-danger btn-lg textCentered" role="button"
+                   style="font-family:'Arcade Rounded';font-weight:normal;font-size:15px">Two player</a>
+            </div>
+            <div class="col-md-6">
+                <a href="{{path('app_sologame')}}" class="btn btn-danger btn-lg textCentered" role="button"
+                   style="font-family:'Arcade Rounded';font-weight:normal;font-size:15px">Play solo</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6" style="margin-top:20px; padding: 20px;">
+        <div id="playerList" class="panel panel-default" style="font-family:'Arcade Rounded'">
+            <div class="panel-body">
+                <h5 style="font-family:'Arcade Rounded';font-weight:normal;font-size:15px">Players online:</h5>
+                <div id="appendUsers"></div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(document).ready(function () {
+            //report to the server the player is online every 15 sec
+            $(function () {
+                setInterval(function () {
+                    var userId = '{{user.userId}}';
+                    var myUrl = "{{path('app_ajaxonline')}}";
+                    var data = {'userId': userId};
+                    $.ajax({
+                        type: 'POST',
+                        url: myUrl,
+                        cache: false,
+                        data: data,
+                        dataType: "json",
+                        success: function (response) {
+                            console.log(response);
+                        },
+                        complete: function () {
+                            console.log('Request is complete');
+                        },
+                        error: function () {
+                            console.log('Oops...there was an error!');
+                        }
+                    });
+
+                }, 15000);
+            });
+
+            //list of online users
+            $(function () {
+                setInterval(function () {
+                    $.ajax({
+                        url: "{{ path('app_ajaxusers')}}",
+                        dataType: "json",
+                        success: function (response) {
+                            //console.log(response);
+                            $('#appendUsers').html(response);
+                        }
+                    });
+                }, 5000);
+            });
+
+            //init list of online users
+            $(function () {
+                $.ajax({
+                    url: "{{ path('app_ajaxusers')}}",
+                    dataType: "json",
+                    success: function (response) {
+                        //console.log(response);
+                        $('#appendUsers').html(response);
+                    }
+                });
+            });
+
+            //check modal message
+            $(function () {
+                setInterval(function () {
+                    $.ajax({
+                        url: "{{ path('app_ajaxmodalcheck')}}",
+                        dataType: "json",
+                        success: function (response) {
+                            if (response.oppId != 'no') {
+                                console.log('modal exist');
+                                var modal = document.getElementById('myModal');
+                                var contentDiv = document.getElementById('modalContent');
+                                $('#playUser').attr('action-data', response.oppId);
+                                $('#notNow').attr('action-data', response.oppId);
+                                contentDiv.innerHTML = response.oppName + ' wants to play with you!';
+                                modal.style.display = "block";
+                                console.log(response);
+                            }
+                            console.log(response);
+                        }
+                    });
+                }, 3000);
+            });
+
+            $(function () {
+                var modal = document.getElementById('myModal');
+                var btn = document.getElementById("myBtn");
+                var span = document.getElementsByClassName("close")[0];
+                span.onclick = function () {
+                    modal.style.display = "none";
+                }
+            });
+
+            //cancel button inside of the modal window
+            $(document).on('click', ".cancelButton", function (e) {
+                e.preventDefault();
+                var modal = document.getElementById('myModal');
+                modal.style.display = "none";
+            });
+
+            //press the button inside of the modal window
+            $(document).on('click', "#playUser", function (e) {
+                e.preventDefault();
+                var modal = document.getElementById('myModal');
+                modal.style.display = "none";
+                var oppId = $(this).attr('action-data');
+                console.log('button pressed');
+                console.log(oppId);
+
+                var myUrl = "{{path('app_ajaxconnectuser')}}";
+                var data = {'oppId': oppId};
+                $.ajax({
+                    type: 'POST',
+                    url: myUrl,
+                    cache: false,
+                    data: data,
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        if (response == 'opponent exist') {
+                            window.location.href = "{{ path('app_game')}}";
+                        }
+                    },
+                    complete: function () {
+                        //console.log('Request is complete');
+                    },
+                    error: function () {
+                        console.log('Oops...there was an error!');
+                    }
+                });
+            });
+            
+            //reject user with not now button. send oppId with ajax and set opp status to 4(reject)
+            $(document).on('click', "#notNow", function (e) {
+                e.preventDefault();
+                var oppId = $(this).attr('action-data');
+                console.log(oppId);
+                var data = {'oppId': oppId};
+                $.ajax({
+                    url: "{{ path('app_ajaxrejectplay')}}",
+                    type: 'POST',
+                    cache: false,
+                    data: data,
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                    }
+                });
+            });
+            
+            //click to play with a user
+            $(document).on('click', ".playButton", function (e) {
+                e.preventDefault();
+                var oppId = $(this).attr('data-action');
+                var oppName = $(this).attr('data-name');
+                console.log(oppId);
+                $('#playerList').addClass('mypanel');
+                var appNode = '<div class="col-md-12" style="min-height: 50px"></div><div class="centered col-md-12" style="font-size:30px;color:white;">Requesting ' + oppName + '</div>\n\
+                                <div class="col-md-12" style="min-height: 25px"></div><div class="col-sm-offset-5 col-sm-2 textCentered" style="min-height: 25px;"><a href="PLACEHOLDER" class="btn btn-danger btn-sm textCentered" role="button">CANCEL</a></div>';
+                var buttonUrl = '{{ path('app_main')}}';
+                var newNode = appNode.replace('PLACEHOLDER', buttonUrl);
+                
+                console.log(newNode)
+                
+                $('#playerList').html(newNode);
+                
+                
+                
+                var data = {'oppId': oppId};
+                $.ajax({
+                    url: "{{ path('app_ajaxplayuser')}}",
+                    type: 'POST',
+                    cache: false,
+                    data: data,
+                    dataType: "json",
+                    success: function (response) {
+                        console.log(response);
+                        connectUser();
+                    }
+                });
+            });
+            
+            //check if the user accepted my play request. If the message 'rejected' redirect to main page
+            function connectUser() {
+                setInterval(function () {
+                    $.ajax({
+                        url: "{{ path('app_ajaxcheckmystatus')}}",
+                        dataType: "json",
+                        success: function (response) {
+                            if (response !== 'no result') {
+                                if (response == 'opponent exist') {
+                                    window.location.href = "{{ path('app_game')}}";
+                                }
+                                if (response == 'rejected') {
+                                    window.location.href = "{{ path('app_main')}}";
+                                }
+                            } else {
+                                console.log('interval on');
+                            }
+                        }
+                    });
+                }, 3000);
+            }
+
+
+
+        });
+    </script>
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends "AppBundle:Default:defaultbase.html.twig" %}
+
+
+{% block stylesheets %}
+    <style>
+        .mypanel {
+            background-image: url("{{asset('bundles/app/images/c64loading.gif')}}");
+            min-height: 300px;
+            max-width: 400px;
+            margin-left:auto;
+            margin-right:auto;
+        }
+        
+    </style>
+{% endblock %} 
+
+
+
+{% block body %}
+
+    <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+        <div style="min-height:10em;"></div>
+        <div class="col-md-12 textCentered">
+            <h1 class="centered" style="font-family:'Arcade Interlaced';font-weight:normal;font-size:42px">Searching for users</h1>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6" style="margin-top:20px; padding: 20px;">
+        <div class="panel panel-default mypanel">
+            <div class="panel-body">
+                
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+{% block javascript %}
+    <script>
+        $(document).ready(function () {
+            //report this user to the server every 15sec
+            $(function () {
+                setInterval(function () {
+                    var userId = '{{user.userId}}';
+                    var myUrl = "{{path('app_ajaxonline')}}";
+                    var data = {'userId': userId};
+                    $.ajax({
+                        type: 'POST',
+                        url: myUrl,
+                        cache: false,
+                        data: data,
+                        dataType: "json",
+                        success: function (response) {
+                            console.log(response);
+                        },
+                        complete: function () {
+                            console.log('Request is complete');
+                        },
+                        error: function () {
+                            console.log('Oops...there was an error!');
+                        }
+                    });
+
+                }, 15000);
+            });
+            
+            $(function () {
+                $.ajax({
+                    url: "{{ path('app_ajaxconnecting')}}",
+                    dataType: "json",
+                    success: function (response) {
+                        if (response !== 'no result') {
+                            console.log(response);
+                        }
+                        if (response == 'opponent exist') {
+                            window.location.href = "{{ path('app_game')}}";
+                        }
+                        connectUser();
+                    }
+                });
+            });
+
+            function connectUser() {
+                setInterval(function () {
+                    $.ajax({
+                        url: "{{ path('app_ajaxconnecting')}}",
+                        dataType: "json",
+                        success: function (response) {
+                            if (response !== 'no result') {
+                                if (response == 'opponent exist') {
+                                    window.location.href = "{{ path('app_game')}}";
+                                }
+                            } else {
+                                console.log('interval on');
+                            }
+                        }
+                    });
+                }, 5000);
+            }
+
+        });
+    </script>
+{% endblock %}

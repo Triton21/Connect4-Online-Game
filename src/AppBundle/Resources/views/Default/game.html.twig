@@ -1,0 +1,368 @@
+{% extends "AppBundle:Default:defaultbase.html.twig" %}
+
+{% block stylesheets %}
+
+    <style type="text/css">
+        .mainrow {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        .place {
+            padding: 20px 0px 0px 0px;
+        }
+        .victory-blue {
+            font-size: 52px;
+            color: blue;
+            text-align: center;
+        }
+        .victory-red {
+            font-size: 52px;
+            color: red;
+            text-align: center;
+        }
+        .row6 {
+            background-color: #f2d4d4;
+            min-height:72px;
+        }
+        .row5 {
+            background-color: white;
+            min-height:72px;
+        }
+        .row4 {
+            background-color: #f2d4d4;
+            min-height:72px;
+        }
+        .row3 {
+            background-color: white;
+            min-height:72px;
+        }
+        .row2 {
+            background-color: #f2d4d4;
+            min-height:72px;
+        }
+        .row1 {
+            background-color: white;
+            min-height:72px;
+        }
+        .centered {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        .chevronDiv {
+            min-height: 35px;
+        }
+        a.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+            cursor: default;
+        }
+
+    </style>
+
+{% endblock %}        
+
+{% block body %}
+
+    <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+        <div style="min-height:5em;"></div>
+        <p class="centered">
+            <span style="font-family:'Arcade Rounded';font-weight:normal;font-size:20px">Opponent: {{opponent.name}} </span>
+        </p>
+        <p class="centered">
+            <span style="font-family:'Arcade Rounded';font-weight:normal;font-size:10px">Status: </span>
+            <span id="statusMessage" style="font-family:'Arcade Rounded';font-weight:normal;font-size:10px"> </span>
+        </p>
+        <div class="col-xs-1" id="startcolor" data-value="{{startColor}}"></div>
+        <div style="min-height:40px; font-family:'Arcade Interlaced';font-weight:normal;font-size:32px" class="victory" id="victory"></div>
+        <div id="victory-blue" class="victory-blue" style="font-family:'Arcade Rounded';font-weight:normal;font-size:30px"></div>
+        <div id="victory-red" class="victory-red" style="font-family:'Arcade Rounded';font-weight:normal;font-size:30px"></div>
+        <div id="redName" {% if myColor == 'red' %} action-name="{{user.userName}}"{% else %}action-name="{{opponent.name}}" {% endif %} ></div>
+        <div id="blueName" {% if myColor == 'blue' %} action-name="{{user.userName}}"{% else %}action-name="{{opponent.name}}" {% endif %} ></div>
+    </div>
+
+    <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 mycol">
+
+
+
+        <div class="col-xs-15 centered">
+            <div class="chevronDiv"><a href="#" class="moveHref" id="a-col"><span data-action="col1" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
+
+            <div class="panel panel-info" id="colMain1">
+                <div class="place row6" id="col16">
+                </div>
+                <div class="place row5" id="col15">
+                </div>
+                <div class="place row4" id="col14">
+                </div>
+                <div class="place row3" id="col13">
+                </div>
+                <div class="place row2" id="col12">
+                </div>
+                <div class="place row1" id="col11">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-15 centered">
+            <div class="chevronDiv"><a href="#" class="moveHref" id="b-col"><span data-action="col2" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
+
+            <div class="panel panel-info" id="colMain2">
+                <div class="place row6" id="col26">
+                </div>
+                <div class="place row5" id="col25">
+                </div>
+                <div class="place row4" id="col24">
+                </div>
+                <div class="place row3" id="col23">
+                </div>
+                <div class="place row2" id="col22">
+                </div>
+                <div class="place row1" id="col21">
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-15 centered">
+            <div class="chevronDiv"><a href="#" class="moveHref" id="c-col"><span data-action="col3" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
+
+            <div class="panel panel-info" id="colMain3">
+                <div class="place row6" id="col36" >
+                </div>
+                <div class="place row5" id="col35" >
+                </div>
+                <div class="place row4" id="col34" >
+                </div>
+                <div class="place row3" id="col33" >
+                </div>
+                <div class="place row2" id="col32" >
+                </div>
+                <div class="place row1" id="col31" >
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-15 centered">
+            <div class="chevronDiv"><a href="#" class="moveHref" id="d-col"><span data-action="col4" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
+            <div class="panel panel-info" id="colMain4">
+                <div class="place row6" id="col46" >
+                </div>
+                <div class="place row5" id="col45" >
+                </div>
+                <div class="place row4" id="col44" >
+                </div>
+                <div class="place row3" id="col43" >
+                </div>
+                <div class="place row2" id="col42" >
+                </div>
+                <div class="place row1" id="col41" >
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-15 centered">
+            <div class="chevronDiv"><a href="#" class="moveHref" id="e-col"><span data-action="col5" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
+            <div class="panel panel-info" id="colMain5">
+                <div class="place row6" id="col56" >
+                </div>
+                <div class="place row5" id="col55" >
+                </div>
+                <div class="place row4" id="col54" >
+                </div>
+                <div class="place row3" id="col53" >
+                </div>
+                <div class="place row2" id="col52" >
+                </div>
+                <div class="place row1" id="col51" >
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-15 centered">
+            <div class="chevronDiv"><a href="#" class="moveHref" id="f-col"><span data-action="col6" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
+            <div class="panel panel-info" id="colMain6">
+                <div class="place row6" id="col66" >
+                </div>
+                <div class="place row5" id="col65" >
+                </div>
+                <div class="place row4" id="col64" >
+                </div>
+                <div class="place row3" id="col63" >
+                </div>
+                <div class="place row2" id="col62" >
+                </div>
+                <div class="place row1" id="col61" >
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-15 centered">
+            <div class="chevronDiv"><a href="#" class="moveHref" id="g-col"><span data-action="col7" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
+            <div class="panel panel-info" id="colMain7">
+                <div class="place row6" id="col76" >
+                </div>
+                <div class="place row5" id="col75" >
+                </div>
+                <div class="place row4" id="col74" >
+                </div>
+                <div class="place row3" id="col73" >
+                </div>
+                <div class="place row2" id="col72" >
+                </div>
+                <div class="place row1" id="col71" >
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+
+{% endblock %}   
+
+{% block javascript %}
+    <script src="{{asset('bundles/app/js/mygame.js')}}"></script>
+
+
+    <script>
+        $(document).ready(function () {
+            
+            
+            
+            //report to the server the player is online every 15 sec
+            $(function () {
+                setInterval(function () {
+                    var userId = '{{user.userId}}';
+                    var myUrl = "{{path('app_ajaxonline')}}";
+                    var data = {'userId': userId};
+                    $.ajax({
+                        type: 'POST',
+                        url: myUrl,
+                        cache: false,
+                        data: data,
+                        dataType: "json",
+                        success: function (response) {
+                            //console.log(response);
+                        },
+                        complete: function () {
+                            //console.log('Request is complete');
+                        },
+                        error: function () {
+                            console.log('Oops...there was an error!');
+                        }
+                    });
+
+                }, 15000);
+            });
+
+
+            //check opponent move
+            $(function () {
+                setInterval(function () {
+                    var oppId = '{{opponent.id}}';
+                    var myUrl = "{{path('app_ajaxcheckmove')}}";
+                    var gameId = '{{game.id}}';
+                    var data = {'oppId': oppId, 'gameId': gameId};
+                    $.ajax({
+                        type: 'POST',
+                        url: myUrl,
+                        cache: false,
+                        data: data,
+                        dataType: "json",
+                        success: function (response) {
+                            if (response.oppMove == 'no opponent') {
+                                $('#statusMessage').html('{{opponent.name}}' + ' has left the game!');
+                            } else {
+                            //console.log(response.oppMove);
+                                if (response.oppMove != 'no move') {
+                                    connectModule.oppmove(response.oppMove);
+                                    enableChevron();
+                                    changePlayerStatus();
+                                }
+                            }
+                            //console.log(response);
+                        },
+                        complete: function () {
+                            //console.log('Request is complete');
+                        },
+                        error: function () {
+                            console.log('Oops...there was an error!');
+                        }
+                    });
+
+                }, 1000);
+            });
+
+            //disable chevrons if startmove == false
+            $(function () {
+                var startmove = '{{startMove}}'
+                if (startmove != true) {
+                    disableChevron();
+                }
+                if (startmove != true) {
+                    $('#statusMessage').html('Waiting for '+ '{{opponent.name}}');
+                    $('#statusMessage').attr('move-name', '{{opponent.name}}');
+                } else {
+                    $('#statusMessage').html('my move');
+                    $('#statusMessage').attr('move-name', '{{myPlayer.name}}');
+                }
+            });
+
+            //disable chevrons if move == false
+            function disableChevron() {
+                $('.moveHref').addClass('disabled');
+            }
+
+            //enable chevron
+            function enableChevron() {
+                $('.moveHref').removeClass('disabled');
+            }
+            
+            function changePlayerStatus() {
+                var movePlayer = $('#statusMessage').attr('move-name');
+                if(movePlayer === '{{opponent.name}}') {
+                    $('#statusMessage').attr('move-name', '{{myPlayer.name}}');
+                    $('#statusMessage').html('my move');
+                } else {
+                    $('#statusMessage').html('Waiting for '+ '{{opponent.name}}');
+                    $('#statusMessage').attr('move-name', '{{opponent.name}}');
+                }
+            }
+
+
+
+            //send move to server
+            $(document).on('click', ".myChevron", function (e) {
+                disableChevron();
+                changePlayerStatus();
+                var myId = '{{myId}}';
+                var gameId = '{{game.id}}';
+                var move = $(this).attr('data-action');
+                var myUrl = "{{path('app_ajaxmove')}}";
+                if (move) {
+                    var jsonData = {'myId': myId, 'move': move, 'gameId': gameId};
+                    $.ajax({
+                        type: 'POST',
+                        url: myUrl,
+                        cache: false,
+                        data: jsonData,
+                        dataType: "json",
+                        success: function (response) {
+                            //console.log(response.myId);
+                            //console.log(response.move);
+                            //console.log(response.gameId);
+                        },
+                        complete: function () {
+                            //console.log('Request is complete');
+                        },
+                        error: function () {
+                            console.log('Oops...there was an error!');
+                        }
+                    });
+                }
+                e.preventDefault();
+
+            });
+            
+        });
+    </script>
+
+
+{% endblock %}

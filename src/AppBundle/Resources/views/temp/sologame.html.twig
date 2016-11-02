@@ -1,0 +1,220 @@
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+
+    <style type="text/css">
+        .mainrow {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        .place {
+            padding: 20px 0px 0px 0px;
+        }
+        .victory-blue {
+            font-size: 52px;
+            color: blue;
+            text-align: center;
+        }
+        .victory-red {
+            font-size: 52px;
+            color: red;
+            text-align: center;
+        }
+        .row6 {
+            background-color: #f2d4d4;
+            min-height:72px;
+        }
+        .row5 {
+            background-color: white;
+            min-height:72px;
+        }
+        .row4 {
+            background-color: #f2d4d4;
+            min-height:72px;
+        }
+        .row3 {
+            background-color: white;
+            min-height:72px;
+        }
+        .row2 {
+            background-color: #f2d4d4;
+            min-height:72px;
+        }
+        .row1 {
+            background-color: white;
+            min-height:72px;
+        }
+        .centered {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        .chevronDiv {
+            min-height: 35px;
+        }
+
+    </style>
+    <style type="text/css">
+        body {
+            background-image: url("{{asset('bundles/app/images/background.jpg')}}");
+            background-color: #ededed;
+            padding: 0px;
+        }
+
+    </style>
+
+{% endblock %}        
+
+{% block body %}
+    
+    
+        <div style="min-height:20px;"></div>
+        <div class="col-xs-1" id="startcolor" data-value="blue"></div>
+        <div style="min-height:40px; font-family:'Arcade Interlaced';font-weight:normal;font-size:32px" class="victory" id="victory"></div>
+        <div id="victory-blue" class="victory-blue"></div>
+        <div id="victory-red" class="victory-red"></div>
+        
+        
+        
+        <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 mycol">
+
+
+
+            <div class="col-xs-15 centered">
+                <div class="chevronDiv"><a href="#" id="a-col"><span data-action="col1" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
+
+                <div class="panel panel-info" id="colMain1">
+                    <div class="place row6" id="col16">
+                    </div>
+                    <div class="place row5" id="col15">
+                    </div>
+                    <div class="place row4" id="col14">
+                    </div>
+                    <div class="place row3" id="col13">
+                    </div>
+                    <div class="place row2" id="col12">
+                    </div>
+                    <div class="place row1" id="col11">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-15 centered">
+                <div class="chevronDiv"><a href="#" id="b-col"><span data-action="col2" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
+
+                <div class="panel panel-info" id="colMain2">
+                    <div class="place row6" id="col26">
+                    </div>
+                    <div class="place row5" id="col25">
+                    </div>
+                    <div class="place row4" id="col24">
+                    </div>
+                    <div class="place row3" id="col23">
+                    </div>
+                    <div class="place row2" id="col22">
+                    </div>
+                    <div class="place row1" id="col21">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-15 centered">
+                <div class="chevronDiv"><a href="#" id="c-col"><span data-action="col3" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
+
+                <div class="panel panel-info" id="colMain3">
+                    <div class="place row6" id="col36" >
+                    </div>
+                    <div class="place row5" id="col35" >
+                    </div>
+                    <div class="place row4" id="col34" >
+                    </div>
+                    <div class="place row3" id="col33" >
+                    </div>
+                    <div class="place row2" id="col32" >
+                    </div>
+                    <div class="place row1" id="col31" >
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-15 centered">
+                <div class="chevronDiv"><a href="#" id="d-col"><span data-action="col4" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
+                <div class="panel panel-info" id="colMain4">
+                    <div class="place row6" id="col46" >
+                    </div>
+                    <div class="place row5" id="col45" >
+                    </div>
+                    <div class="place row4" id="col44" >
+                    </div>
+                    <div class="place row3" id="col43" >
+                    </div>
+                    <div class="place row2" id="col42" >
+                    </div>
+                    <div class="place row1" id="col41" >
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-15 centered">
+                <div class="chevronDiv"><a href="#" id="e-col"><span data-action="col5" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
+                <div class="panel panel-info" id="colMain5">
+                    <div class="place row6" id="col56" >
+                    </div>
+                    <div class="place row5" id="col55" >
+                    </div>
+                    <div class="place row4" id="col54" >
+                    </div>
+                    <div class="place row3" id="col53" >
+                    </div>
+                    <div class="place row2" id="col52" >
+                    </div>
+                    <div class="place row1" id="col51" >
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-15 centered">
+                <div class="chevronDiv"><a href="#" id="f-col"><span data-action="col6" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
+                <div class="panel panel-info" id="colMain6">
+                    <div class="place row6" id="col66" >
+                    </div>
+                    <div class="place row5" id="col65" >
+                    </div>
+                    <div class="place row4" id="col64" >
+                    </div>
+                    <div class="place row3" id="col63" >
+                    </div>
+                    <div class="place row2" id="col62" >
+                    </div>
+                    <div class="place row1" id="col61" >
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-15 centered">
+                <div class="chevronDiv"><a href="#" id="g-col"><span data-action="col7" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
+                <div class="panel panel-info" id="colMain7">
+                    <div class="place row6" id="col76" >
+                    </div>
+                    <div class="place row5" id="col75" >
+                    </div>
+                    <div class="place row4" id="col74" >
+                    </div>
+                    <div class="place row3" id="col73" >
+                    </div>
+                    <div class="place row2" id="col72" >
+                    </div>
+                    <div class="place row1" id="col71" >
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+{% endblock %}   
+
+{% block javascript %}
+    <script src="{{asset('bundles/app/js/blue.js')}}"></script>
+    <script src="{{asset('bundles/app/js/red.js')}}"></script>
+    <script src="{{asset('bundles/app/js/allcolor.js')}}"></script>
+    <script src="{{asset('bundles/app/js/mycomputer.js')}}"></script>
+
+
+{% endblock %}

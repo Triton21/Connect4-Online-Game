@@ -1,0 +1,69 @@
+app_index:
+    path:   /
+    defaults: { _controller: AppBundle:Default:index }
+    
+app_main:
+    path:   /main
+    defaults: { _controller: AppBundle:Default:main }
+    
+app_sologame:
+    path:   /sologame
+    defaults: { _controller: AppBundle:Default:sologame }
+    
+app_game:
+    path:   /game/{gameId}
+    defaults: { _controller: AppBundle:Default:game, gameId:1 }
+    
+app_logout:
+    path:   /logout
+    defaults: { _controller: AppBundle:Default:logout, gameId:1 }
+    
+app_ajaxonline:
+    path:   /ajaxonline
+    defaults: { _controller: AppBundle:Default:ajaxonline }
+    
+app_ajaxusers:
+    path:   /ajaxusers
+    defaults: { _controller: AppBundle:Default:ajaxusers }
+    
+app_connecting:
+    path:   /connecting
+    defaults: { _controller: AppBundle:Default:connecting }
+    
+app_ajaxconnecting:
+    path:   /ajaxconnecting
+    defaults: { _controller: AppBundle:Default:ajaxconnecting }
+    
+app_ajaxmodalcheck:
+    path:   /ajaxmodalcheck
+    defaults: { _controller: AppBundle:Default:ajaxmodalcheck }
+    
+app_ajaxplayuser:
+    path:   /ajaxplayuser
+    defaults: { _controller: AppBundle:Default:ajaxplayuser }
+    
+app_test:
+    path:   /test/{gameId}/{oppId}
+    defaults: { _controller: AppBundle:Default:test, gameId:gameId, oppId:oppId }
+    
+app_ajaxmove:
+    path:   /ajaxmove
+    defaults: { _controller: AppBundle:Default:ajaxmove }
+    
+app_ajaxcheckmove:
+    path:   /ajaxcheckmove
+    defaults: { _controller: AppBundle:Default:ajaxCheckMove }
+    
+app_ajaxconnectuser:
+    path:   /ajaxconnectuser
+    defaults: { _controller: AppBundle:Default:ajaxConnectUser }
+    
+app_ajaxcheckmystatus:
+    path:   /ajaxcheckmystatus
+    defaults: { _controller: AppBundle:Default:ajaxCheckMyStatus }
+    
+app_ajaxrejectplay:
+    path:   /ajaxrejectplay
+    defaults: { _controller: AppBundle:Default:ajaxRejectPlay }
+    
+

@@ -1,0 +1,62 @@
+{% extends '::base.html.twig' %}
+
+
+{% block stylesheets %}
+    <style type="text/css">
+        .centered {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .text-centered {
+            text-align: center;
+        }
+
+    </style>
+
+{% endblock %} 
+
+
+
+{% block body %}
+
+    <div class="container">
+        <div style="min-height:40px;"></div>
+        <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+            <h1 style="font-family:'Arcade Interlaced';font-weight:normal;font-size:42px; text-align: center;">Connect four</h1>
+
+
+
+        </div>
+
+        <div style="min-height:20px;"></div>
+
+        <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 text-centered">
+
+            {{ form_start(form, {'attr': {'style': 'font-family:"Arcade Rounded";font-weight:normal;font-size:20px; text-align: center;'}}) }}
+            {{ form_errors(form) }}
+
+            <div class="col-md-offset-2 col-md-8 text-centered">
+                <h3 class="form-signin-heading text-centered" style="font-family:'Arcade Rounded';font-weight:normal;font-size:20px">Choose a nickname</h3>
+                {{ form_errors(form.name) }}
+                {{ form_widget(form.name) }}
+            </div>
+            <div class="col-md-12" style="min-height:20px;"></div>
+            <div class="text-centered">
+                {{ form_widget(form.save) }}
+            </div>
+
+            {{ form_end(form) }}
+
+
+
+        </div>
+
+        <div style="min-height:25em;"></div>
+        <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+            <h1 style="font-family:'Arcade Rounded';font-weight:normal;font-size:8px; text-align: center;">Game created by Peter Csatai</h1>
+
+
+
+        </div>
+    </div>
+{% endblock %}

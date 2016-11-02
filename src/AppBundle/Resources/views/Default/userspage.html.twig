@@ -1,0 +1,18 @@
+<table class="table">
+    {% for user in allUser %}
+        <tr class="text-center">
+            <td style="font-family:'Arcade Rounded';font-weight:normal;font-size:15px"">
+                {{user.name}}
+            </td>
+            <td style="text-align: left; font-family:'Arcade Rounded'">
+                {% if user.status == 1 %}<span style="color:green;" class="glyphicon glyphicon-ok-circle gi-9p"></span>
+                {% elseif user.status == 2 %}<span style="color:green; font-size:15px">Searching</span>
+                {% elseif user.status == 3 %}<span style="color:red;" class="glyphicon glyphicon-remove-circle gi-9p"></span>{% endif %}
+            </td>
+            <td style="text-align: left; font-family:'Arcade Rounded'">
+                {% if user.status == 1 and myId != user.id %}<a href style="font-family:'Arcade Rounded'" class="btn btn-success btn-sm playButton" role="button" data-name="{{user.name}}" data-action="{{user.id}}">Play</a>
+                {% endif %} 
+            </td>
+        </tr>
+    {% endfor %}
+</table>
