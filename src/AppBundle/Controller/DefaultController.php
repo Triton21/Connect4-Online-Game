@@ -360,15 +360,19 @@ class DefaultController extends Controller {
     /**
      * One player action
      */
-    public function sologameAction() {
+    public function sologameAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('session')->get('user');
         if (!$user) {
             return $this->redirectToRoute('app_index');
         }
+        
         $player = $em->getRepository('AppBundle:Player')
                     ->find($user['userId']);
-        if ($player) {
+        if(!$player) {
+            $request->getSession()->invalidate(1);
+            return $this->redirectToRoute('app_index');
+        } else {
             $player->setStatus(3);
             $em->persist($player);
             $em->flush();
