@@ -10,14 +10,6 @@
         .place {
             padding: 20px 0px 0px 0px;
         }
-        .victory-blue {
-            font-size: 52px;
-            text-align: center;
-        }
-        .victory-red {
-            font-size: 52px;
-            text-align: center;
-        }
         .row6 {
             background-color: #f2d4d4;
             min-height:65px;
@@ -62,9 +54,11 @@
         </p>
 
         <div class="col-xs-1" style="display: none;" id="startcolor" data-value="blue"></div>
-        <div class="col-md-12" style="min-height:20px; font-family:'Arcade Rounded';font-weight:normal;font-size:28px" class="victory centered" id="victory"></div>
-        <div id="victory-blue" class="victory-blue"></div>
-        <div id="victory-red" class="victory-red"></div>
+        <div class="col-md-12 textCentered" style="min-height:20px; font-family:'Arcade Rounded';font-weight:normal;font-size:28px" id="victory"></div>
+        <div id="playAgain" class="col-xs-12 textCentered" style="display:none;">
+            <p><a href="{{path('app_sologame')}}" class="btn btn-success btn-sm playUser" style="font-family:'Arcade Rounded'" role="button">Play again</a></p>
+            <p><a href="{{path('app_main')}}" class="btn btn-danger btn-sm cancelButton" style="font-family:'Arcade Rounded'" role="button">Not now!</a></p>
+        </div>
     </div>
     <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 mycol">
 

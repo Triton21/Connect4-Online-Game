@@ -696,6 +696,8 @@ computerModule = (function (om, bl, rd, al) {
         $( "#f-col" ).remove();
         $( "#g-col" ).remove();
         victory.innerHTML = color + ' wins!';
+        var playAgain = document.getElementById('playAgain');
+        playAgain.removeAttribute("style");
     }
 
     removeColArrow = function (colNum) {
