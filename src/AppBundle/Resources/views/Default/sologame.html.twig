@@ -12,12 +12,10 @@
         }
         .victory-blue {
             font-size: 52px;
-            color: blue;
             text-align: center;
         }
         .victory-red {
             font-size: 52px;
-            color: red;
             text-align: center;
         }
         .row6 {
@@ -54,7 +52,7 @@
 
 {% block body %}
     <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
-        <div style="min-height:5em;;" class="col-md-12"></div>
+        <div style="min-height:0.5em;" class="col-xs-12"></div>
         <p class="centered">
             <span style="font-family:'Arcade Rounded';font-weight:normal;font-size:20px">Opponent: computer</span>
         </p>
@@ -63,8 +61,8 @@
             <span id="statusMessage" move-name="{{user.userName}}" style="font-family:'Arcade Rounded';font-weight:normal;font-size:10px"> my move</span>
         </p>
 
-        <div class="col-xs-1" id="startcolor" data-value="blue"></div>
-        <div class="col-md-12" style="min-height:40px; font-family:'Arcade Rounded';font-weight:normal;font-size:28px" class="victory centered" id="victory"></div>
+        <div class="col-xs-1" style="display: none;" id="startcolor" data-value="blue"></div>
+        <div class="col-md-12" style="min-height:20px; font-family:'Arcade Rounded';font-weight:normal;font-size:28px" class="victory centered" id="victory"></div>
         <div id="victory-blue" class="victory-blue"></div>
         <div id="victory-red" class="victory-red"></div>
     </div>
