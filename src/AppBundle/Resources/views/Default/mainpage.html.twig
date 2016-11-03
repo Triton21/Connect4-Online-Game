@@ -68,16 +68,12 @@
         <div class="col-md-12 textCentered">
             <h1 class="centered" style="font-family:'Arcade Interlaced';font-weight:normal;font-size:42px">Connect four</h1>
         </div>
-        <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
-            <div class="col-md-6 textCentered">
-                <a href="{{path('app_connecting')}}" style="margin: 2px;font-family:'Arcade Rounded'" class="btn btn-danger btn-lg" role="button">Random game</a>
-            </div>
-            <div class="col-md-6 textCentered">
-                <a href="{{path('app_sologame')}}" style="margin:2px; font-family:'Arcade Rounded'" class="btn btn-danger btn-lg" role="button">Play solo</a>
-            </div>
+        <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 textCentered" style="display: inline-block;">
+            <a href="{{path('app_connecting')}}" style="display: inline-block; margin: 2px;font-family:'Arcade Rounded'" class="btn btn-danger btn-lg" role="button">Random game</a>
+            <a href="{{path('app_sologame')}}" style="display: inline-block; margin:2px; font-family:'Arcade Rounded'" class="btn btn-danger btn-lg" role="button">Play solo</a>
         </div>      
     </div>
-    <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6" style="margin-top:20px; padding: 20px;">
+    <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6" style="margin-top:10px; padding: 20px;">
         <div id="playerList" class="panel panel-default" style="font-family:'Arcade Rounded'">
             <div class="panel-body">
                 <h5 style="font-family:'Arcade Rounded';font-weight:normal;font-size:15px">Players online:</h5>
