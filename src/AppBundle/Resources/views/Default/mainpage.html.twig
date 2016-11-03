@@ -1,6 +1,5 @@
 {% extends "AppBundle:Default:defaultbase.html.twig" %}
 
-
 {% block stylesheets %}
     <style>
         .modal {
@@ -17,7 +16,6 @@
             background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
         }
 
-        /* Modal Content */
         .modal-content {
             background-color: #fefefe;
             margin: auto;
@@ -25,14 +23,12 @@
             border: 1px solid #888;
             width: 70%;
         }
-        /* The Close Button */
         .close {
             color: #aaa;
             float: right;
             font-size: 28px;
             font-weight: bold;
         }
-
         .close:hover,
         .close:focus {
             color: black;
@@ -50,15 +46,10 @@
             margin-right: auto;
         }
     </style>  
-
 {% endblock %} 
 
-
-
 {% block body %}
-
     {#MODAL BOX#}
-
     <div id="myModal" class="modal">
 
         <!-- Modal content -->
@@ -70,11 +61,10 @@
                 <p><a href id="notNow" style="font-family:'Arcade Rounded'" class="btn btn-danger btn-sm cancelButton" role="button">Not now!</a></p>
             </div>
         </div>
-
     </div>
 
     <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
-        <div style="min-height:10em;"></div>
+        <div class="col-xs-12" style="height:3em;"></div>
         <div class="col-md-12 textCentered">
             <h1 class="centered" style="font-family:'Arcade Interlaced';font-weight:normal;font-size:42px">Connect four</h1>
         </div>
@@ -97,8 +87,6 @@
             </div>
         </div>
     </div>
-
-
 {% endblock %}
 
 {% block javascript %}
@@ -126,7 +114,6 @@
                             console.log('Oops...there was an error!');
                         }
                     });
-
                 }, 15000);
             });
 
@@ -226,7 +213,7 @@
                     }
                 });
             });
-            
+
             //reject user with not now button. send oppId with ajax and set opp status to 4(reject)
             $(document).on('click', "#notNow", function (e) {
                 e.preventDefault();
@@ -244,7 +231,7 @@
                     }
                 });
             });
-            
+
             //click to play with a user
             $(document).on('click', ".playButton", function (e) {
                 e.preventDefault();
@@ -256,13 +243,7 @@
                                 <div class="col-md-12" style="min-height: 25px"></div><div class="col-sm-offset-5 col-sm-2 textCentered" style="min-height: 25px;"><a href="PLACEHOLDER" class="btn btn-danger btn-sm textCentered" role="button">CANCEL</a></div>';
                 var buttonUrl = '{{ path('app_main')}}';
                 var newNode = appNode.replace('PLACEHOLDER', buttonUrl);
-                
-                console.log(newNode)
-                
                 $('#playerList').html(newNode);
-                
-                
-                
                 var data = {'oppId': oppId};
                 $.ajax({
                     url: "{{ path('app_ajaxplayuser')}}",
@@ -276,7 +257,7 @@
                     }
                 });
             });
-            
+
             //check if the user accepted my play request. If the message 'rejected' redirect to main page
             function connectUser() {
                 setInterval(function () {
@@ -298,9 +279,6 @@
                     });
                 }, 3000);
             }
-
-
-
         });
     </script>
 {% endblock %}
