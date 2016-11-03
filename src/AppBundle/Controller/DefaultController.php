@@ -361,8 +361,20 @@ class DefaultController extends Controller {
      * One player action
      */
     public function sologameAction() {
-
+        $em = $this->getDoctrine()->getManager();
         $user = $this->get('session')->get('user');
+        if (!$user) {
+            return $this->redirectToRoute('app_index');
+        }
+        $player = $em->getRepository('AppBundle:Player')
+                    ->find($user['userId']);
+        if ($player) {
+            $player->setStatus(3);
+            $em->persist($player);
+            $em->flush();
+        }
+        
+        
         return $this->render('AppBundle:Default:sologame.html.twig', array(
                     'user' => $user,));
     }
