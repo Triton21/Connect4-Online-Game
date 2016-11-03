@@ -65,7 +65,7 @@
 {% block body %}
 
     <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
-        <div style="min-height:5em;"></div>
+        <div class="col-xs-12" style="height:1em;"></div>
         <p class="centered">
             <span style="font-family:'Arcade Rounded';font-weight:normal;font-size:20px">Opponent: {{opponent.name}} </span>
         </p>
@@ -73,7 +73,7 @@
             <span style="font-family:'Arcade Rounded';font-weight:normal;font-size:10px">Status: </span>
             <span id="statusMessage" style="font-family:'Arcade Rounded';font-weight:normal;font-size:10px"> </span>
         </p>
-        <div class="col-xs-1" id="startcolor" data-value="{{startColor}}"></div>
+        <div class="col-xs-1" style="display: none;" id="startcolor" data-value="{{startColor}}"></div>
         <div style="min-height:40px; font-family:'Arcade Interlaced';font-weight:normal;font-size:32px" class="victory" id="victory"></div>
         <div id="victory-blue" class="victory-blue" style="font-family:'Arcade Rounded';font-weight:normal;font-size:30px"></div>
         <div id="victory-red" class="victory-red" style="font-family:'Arcade Rounded';font-weight:normal;font-size:30px"></div>
@@ -82,9 +82,6 @@
     </div>
 
     <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 mycol">
-
-
-
         <div class="col-xs-15 centered">
             <div class="chevronDiv"><a href="#" class="moveHref" id="a-col"><span data-action="col1" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
 
