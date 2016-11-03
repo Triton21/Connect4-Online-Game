@@ -5,7 +5,7 @@
     <style>
         .mypanel {
             background-image: url("{{asset('bundles/app/images/c64loading.gif')}}");
-            min-height: 300px;
+            min-height: 250px;
             max-width: 400px;
             margin-left:auto;
             margin-right:auto;
@@ -19,15 +19,18 @@
 {% block body %}
 
     <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
-        <div style="min-height:10em;"></div>
+        <div class="col-md-12" style="min-height:5em;"></div>
         <div class="col-md-12 textCentered">
             <h1 class="centered" style="font-family:'Arcade Interlaced';font-weight:normal;font-size:42px">Searching for users</h1>
         </div>
     </div>
     <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6" style="margin-top:20px; padding: 20px;">
         <div class="panel panel-default mypanel">
-            <div class="panel-body">
-                
+            <div class="panel-body" style="text-align: center;">
+                <div class="col-md-12" style="min-height:4em;"></div>
+                <p><h5 style="font-family:'Arcade Rounded';font-weight:normal;font-size:20px;color:white;">SEARCHING</h5></p>
+                <div class="col-md-12" style="min-height:2em;"></div>
+                <p><a href="{{path('app_main')}}" style="text-align: center; font-family:'Arcade Rounded'" class="btn btn-danger btn-sm cancelButton" role="button">CANCEL</a></p>
             </div>
         </div>
 
