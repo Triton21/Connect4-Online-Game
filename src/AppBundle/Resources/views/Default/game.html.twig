@@ -74,9 +74,9 @@
             <span id="statusMessage" style="font-family:'Arcade Rounded';font-weight:normal;font-size:10px"> </span>
         </p>
         <div class="col-xs-1" style="display: none;" id="startcolor" data-value="{{startColor}}"></div>
-        <div style="min-height:40px; font-family:'Arcade Interlaced';font-weight:normal;font-size:32px" class="victory" id="victory"></div>
-        <div id="victory-blue" class="victory-blue" style="font-family:'Arcade Rounded';font-weight:normal;font-size:30px"></div>
-        <div id="victory-red" class="victory-red" style="font-family:'Arcade Rounded';font-weight:normal;font-size:30px"></div>
+        <div class="col-xs-12" style="min-height:20px; font-family:'Arcade Interlaced';font-weight:normal;font-size:32px" class="victory" id="victory"></div>
+        <div id="victory-blue" class="col-xs-12" style="font-family:'Arcade Rounded';font-weight:normal;font-size:30px"></div>
+        <div id="victory-red" class="col-xs-12" style="font-family:'Arcade Rounded';font-weight:normal;font-size:30px"></div>
         <div id="redName" {% if myColor == 'red' %} action-name="{{user.userName}}"{% else %}action-name="{{opponent.name}}" {% endif %} ></div>
         <div id="blueName" {% if myColor == 'blue' %} action-name="{{user.userName}}"{% else %}action-name="{{opponent.name}}" {% endif %} ></div>
     </div>
