@@ -66,4 +66,8 @@ app_ajaxrejectplay:
     path:   /ajaxrejectplay
     defaults: { _controller: AppBundle:Default:ajaxRejectPlay }
     
+app_ajaxnewgame:
+    path:   /ajaxnewgame
+    defaults: { _controller: AppBundle:Default:ajaxnewgame }
+    
 

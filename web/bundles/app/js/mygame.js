@@ -704,6 +704,8 @@ connectModule = (function (om) {
         }
         disableArrow();
         victory.innerHTML = name + ' wins!';
+        var playAgain = document.getElementById('playAgain');
+        playAgain.removeAttribute("style");
     }
 
     function disableArrow() {
