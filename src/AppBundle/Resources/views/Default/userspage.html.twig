@@ -11,6 +11,7 @@
             </td>
             <td style="text-align: left; font-family:'Arcade Rounded'">
                 {% if user.status == 1 and myId != user.id %}<a href style="font-family:'Arcade Rounded'" class="btn btn-success btn-sm playButton" role="button" data-name="{{user.name}}" data-action="{{user.id}}">Play</a>
+                {% elseif myId == user.id %}<button class="btn btn-default btn-sm playButton" disabled>you</button>
                 {% endif %} 
             </td>
         </tr>
