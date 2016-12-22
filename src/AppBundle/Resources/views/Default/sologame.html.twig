@@ -37,6 +37,22 @@
         .chevronDiv {
             min-height: 35px;
         }
+        #canvas-container {
+            width: 100%;
+            text-align:center;
+        }
+
+        canvas {
+            display: inline;
+            background: url("{{asset('bundles/app/images/con4sym2.png')}}");
+            background-size: 100% 100%;
+        }
+        a.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+            cursor: default;
+        }
+
 
     </style>
 
@@ -56,143 +72,154 @@
         <div class="col-xs-1" style="display: none;" id="startcolor" data-value="blue"></div>
         <div class="col-md-12 textCentered" style="min-height:20px; font-family:'Arcade Rounded';font-weight:normal;font-size:28px" id="victory"></div>
         <div id="playAgain" class="col-xs-12 textCentered" style="display:none;">
-            <p><a href="#" class="btn btn-success btn-sm playUser" style="font-family:'Arcade Rounded'" role="button">Play again</a></p>
+            <p><a href="{{path('app_sologame')}}" class="btn btn-success btn-sm playUser" style="font-family:'Arcade Rounded'" role="button">Play again</a></p>
             <p><a href="{{path('app_main')}}" class="btn btn-danger btn-sm cancelButton" style="font-family:'Arcade Rounded'" role="button">Not now!</a></p>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 mycol">
+    <div class="row">
+        <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6 mycol">
 
 
 
-        <div class="col-xs-15 centered">
-            <div class="chevronDiv"><a href="#" id="a-col"><span data-action="col1" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
+            <div class="col-xs-15 centered">
+                <div class="chevronDiv"><a href="#" class="moveHref" id="a-col"><span data-action="col1" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
 
-            <div class="panel panel-info" id="colMain1">
-                <div class="place row6" id="col16">
-                </div>
-                <div class="place row5" id="col15">
-                </div>
-                <div class="place row4" id="col14">
-                </div>
-                <div class="place row3" id="col13">
-                </div>
-                <div class="place row2" id="col12">
-                </div>
-                <div class="place row1" id="col11">
+                <div class="panel panel-info" id="colMain1" style="display: none;">
+                    <div class="place row6" id="col16">
+                    </div>
+                    <div class="place row5" id="col15">
+                    </div>
+                    <div class="place row4" id="col14">
+                    </div>
+                    <div class="place row3" id="col13">
+                    </div>
+                    <div class="place row2" id="col12">
+                    </div>
+                    <div class="place row1" id="col11">
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-xs-15 centered">
-            <div class="chevronDiv"><a href="#" id="b-col"><span data-action="col2" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
+            <div class="col-xs-15 centered">
+                <div class="chevronDiv"><a href="#" class="moveHref" id="b-col"><span data-action="col2" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
 
-            <div class="panel panel-info" id="colMain2">
-                <div class="place row6" id="col26">
-                </div>
-                <div class="place row5" id="col25">
-                </div>
-                <div class="place row4" id="col24">
-                </div>
-                <div class="place row3" id="col23">
-                </div>
-                <div class="place row2" id="col22">
-                </div>
-                <div class="place row1" id="col21">
+                <div class="panel panel-info" id="colMain2" style="display: none;">
+                    <div class="place row6" id="col26">
+                    </div>
+                    <div class="place row5" id="col25">
+                    </div>
+                    <div class="place row4" id="col24">
+                    </div>
+                    <div class="place row3" id="col23">
+                    </div>
+                    <div class="place row2" id="col22">
+                    </div>
+                    <div class="place row1" id="col21">
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-xs-15 centered">
-            <div class="chevronDiv"><a href="#" id="c-col"><span data-action="col3" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
+            <div class="col-xs-15 centered">
+                <div class="chevronDiv"><a href="#" class="moveHref" id="c-col"><span data-action="col3" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
 
-            <div class="panel panel-info" id="colMain3">
-                <div class="place row6" id="col36" >
-                </div>
-                <div class="place row5" id="col35" >
-                </div>
-                <div class="place row4" id="col34" >
-                </div>
-                <div class="place row3" id="col33" >
-                </div>
-                <div class="place row2" id="col32" >
-                </div>
-                <div class="place row1" id="col31" >
+                <div class="panel panel-info" id="colMain3" style="display: none;">
+                    <div class="place row6" id="col36" >
+                    </div>
+                    <div class="place row5" id="col35" >
+                    </div>
+                    <div class="place row4" id="col34" >
+                    </div>
+                    <div class="place row3" id="col33" >
+                    </div>
+                    <div class="place row2" id="col32" >
+                    </div>
+                    <div class="place row1" id="col31" >
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-xs-15 centered">
-            <div class="chevronDiv"><a href="#" id="d-col"><span data-action="col4" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
-            <div class="panel panel-info" id="colMain4">
-                <div class="place row6" id="col46" >
-                </div>
-                <div class="place row5" id="col45" >
-                </div>
-                <div class="place row4" id="col44" >
-                </div>
-                <div class="place row3" id="col43" >
-                </div>
-                <div class="place row2" id="col42" >
-                </div>
-                <div class="place row1" id="col41" >
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-15 centered">
-            <div class="chevronDiv"><a href="#" id="e-col"><span data-action="col5" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
-            <div class="panel panel-info" id="colMain5">
-                <div class="place row6" id="col56" >
-                </div>
-                <div class="place row5" id="col55" >
-                </div>
-                <div class="place row4" id="col54" >
-                </div>
-                <div class="place row3" id="col53" >
-                </div>
-                <div class="place row2" id="col52" >
-                </div>
-                <div class="place row1" id="col51" >
+            <div class="col-xs-15 centered">
+                <div class="chevronDiv"><a href="#" class="moveHref" id="d-col"><span data-action="col4" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
+                <div class="panel panel-info" id="colMain4" style="display: none;">
+                    <div class="place row6" id="col46" >
+                    </div>
+                    <div class="place row5" id="col45" >
+                    </div>
+                    <div class="place row4" id="col44" >
+                    </div>
+                    <div class="place row3" id="col43" >
+                    </div>
+                    <div class="place row2" id="col42" >
+                    </div>
+                    <div class="place row1" id="col41" >
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-xs-15 centered">
-            <div class="chevronDiv"><a href="#" id="f-col"><span data-action="col6" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
-            <div class="panel panel-info" id="colMain6">
-                <div class="place row6" id="col66" >
-                </div>
-                <div class="place row5" id="col65" >
-                </div>
-                <div class="place row4" id="col64" >
-                </div>
-                <div class="place row3" id="col63" >
-                </div>
-                <div class="place row2" id="col62" >
-                </div>
-                <div class="place row1" id="col61" >
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-15 centered">
-            <div class="chevronDiv"><a href="#" id="g-col"><span data-action="col7" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
-            <div class="panel panel-info" id="colMain7">
-                <div class="place row6" id="col76" >
-                </div>
-                <div class="place row5" id="col75" >
-                </div>
-                <div class="place row4" id="col74" >
-                </div>
-                <div class="place row3" id="col73" >
-                </div>
-                <div class="place row2" id="col72" >
-                </div>
-                <div class="place row1" id="col71" >
+            <div class="col-xs-15 centered">
+                <div class="chevronDiv"><a href="#" class="moveHref" id="e-col"><span data-action="col5" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
+                <div class="panel panel-info" id="colMain5" style="display: none;">
+                    <div class="place row6" id="col56" >
+                    </div>
+                    <div class="place row5" id="col55" >
+                    </div>
+                    <div class="place row4" id="col54" >
+                    </div>
+                    <div class="place row3" id="col53" >
+                    </div>
+                    <div class="place row2" id="col52" >
+                    </div>
+                    <div class="place row1" id="col51" >
+                    </div>
                 </div>
             </div>
+            <div class="col-xs-15 centered">
+                <div class="chevronDiv"><a href="#" class="moveHref" id="f-col"><span data-action="col6" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
+                <div class="panel panel-info" id="colMain6" style="display: none;">
+                    <div class="place row6" id="col66" >
+                    </div>
+                    <div class="place row5" id="col65" >
+                    </div>
+                    <div class="place row4" id="col64" >
+                    </div>
+                    <div class="place row3" id="col63" >
+                    </div>
+                    <div class="place row2" id="col62" >
+                    </div>
+                    <div class="place row1" id="col61" >
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-15 centered">
+                <div class="chevronDiv"><a href="#" class="moveHref" id="g-col"><span data-action="col7" class="gi-10p glyphicon glyphicon-chevron-down myChevron" style="color:#337ab7;"></span></a></div>
+                <div class="panel panel-info" id="colMain7" style="display: none;">
+                    <div class="place row6" id="col76" >
+                    </div>
+                    <div class="place row5" id="col75" >
+                    </div>
+                    <div class="place row4" id="col74" >
+                    </div>
+                    <div class="place row3" id="col73" >
+                    </div>
+                    <div class="place row2" id="col72" >
+                    </div>
+                    <div class="place row1" id="col71" >
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
         </div>
-
-
-
-
-
     </div>
 
+    <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6" style="background-color: lightblue;" id="referenceCol">
+    </div>
+    <div class="row">
+        <div id="canvas-container">
+            <canvas id="canvas" width="400" height="380" style="border:0px;">
+                This text is displayed if your browser does not support HTML5 Canvas.
+            </canvas>
+        </div>
+    </div>
 
 {% endblock %}   
 
@@ -200,12 +227,216 @@
     <script src="{{asset('bundles/app/js/blue.js')}}"></script>
     <script src="{{asset('bundles/app/js/red.js')}}"></script>
     <script src="{{asset('bundles/app/js/allcolor.js')}}"></script>
+    <script src="{{asset('bundles/app/js/column.js')}}"></script>
     <script src="{{asset('bundles/app/js/mycomputer.js')}}"></script>
     <script>
+        //polyfill
+        (function () {
+            var lastTime = 0;
+            var vendors = ['ms', 'moz', 'webkit', 'o'];
+            for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+                window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+                window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame']
+                        || window[vendors[x] + 'CancelRequestAnimationFrame'];
+            }
+
+            if (!window.requestAnimationFrame)
+                window.requestAnimationFrame = function (callback, element) {
+                    var currTime = new Date().getTime();
+                    var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+                    var id = window.setTimeout(function () {
+                        callback(currTime + timeToCall);
+                    },
+                            timeToCall);
+                    lastTime = currTime + timeToCall;
+                    return id;
+                };
+
+            if (!window.cancelAnimationFrame)
+                window.cancelAnimationFrame = function (id) {
+                    clearTimeout(id);
+                };
+        }());
+
         $(document).ready(function () {
-            $(document).on('click', ".myChevron", function (e) {
-                e.preventDefault();
+
+
+            var colWidth = $("#referenceCol").width();
+
+            //resize canvas when load the page
+            function resizeCanvas() {
+                var canvas = $("#canvas");
+                canvas.attr('width', colWidth);
+                globalColWidht = canvas.width();
+            }
+            resizeCanvas();
+
+            //resize canvas when change the window
+            var waitForFinalEvent = (function () {
+                var timers = {};
+                return function (callback, ms, uniqueId) {
+                    if (!uniqueId) {
+                        uniqueId = "Don't call this twice without a uniqueId";
+                    }
+                    if (timers[uniqueId]) {
+                        clearTimeout(timers[uniqueId]);
+                    }
+                    timers[uniqueId] = setTimeout(callback, ms);
+                };
+            })();
+
+            $(window).resize(function () {
+                waitForFinalEvent(function () {
+                    var oldWidth = $("#canvas").css("width").replace("px", "");
+                    var oldHeight = $("#canvas").css("height").replace("px", "");
+                    var canvas = $("#canvas");
+                    $("#canvas").css({
+                        "width": $("#referenceCol").width(),
+                        "height": $("#canvas").height()
+                    });
+                    var ratio1 = oldWidth / window.innerWidth;
+                    var ratio2 = oldHeight / window.innerHeight;
+                    canvas.ctx.scale(ratio1, ratio2);
+                    globalColWidht = canvas.width();
+                }, 500, "some unique string");
             });
         });
+
+        //disable chevrons if move == false
+        function disableChevron() {
+            $('.moveHref').addClass('disabled');
+        }
+
+        //enable chevron
+        function enableChevron() {
+            console.log('ENABLE');
+            $('.moveHref').removeClass('disabled');
+        }
+
+        function calculateX(col) {
+            var colWidth = globalColWidht;
+            var mainX = colWidth / 7;
+            var correctX = mainX / 2;
+            var colX = mainX * col - correctX;
+            return colX;
+        }
+
+        function calculateY(col) {
+            var mainY = $("#canvas").height() / 6;
+            var correctY = mainY / 2;
+            var row = COLUMN.getCol('col' + col) + 1;
+            var colY = $("#canvas").height() - row * mainY + correctY;
+            return colY;
+        }
+
+        function displayCols() {
+            var row1 = COLUMN.getCol('col1');
+            var row2 = COLUMN.getCol('col2');
+            var row3 = COLUMN.getCol('col3');
+            var row4 = COLUMN.getCol('col4');
+            var row5 = COLUMN.getCol('col5');
+            var row6 = COLUMN.getCol('col6');
+            var row7 = COLUMN.getCol('col7');
+            console.log(row1);
+            console.log(row2);
+            console.log(row3);
+            console.log(row4);
+            console.log(row5);
+            console.log(row6);
+            console.log(row7);
+        }
+
+
+        //display controller
+        function triggerDisplay(col, color, pcColor) {
+            console.log('USERCOLOR ' + color);
+            console.log('PCCOLOR ' + pcColor);
+            animate(col, color);
+            //displayCols();
+        }
+
+
+
+
+        function drawCircle(x, y, color, col) {
+            var mainCanvas = document.querySelector("#canvas");
+            var mainContext = mainCanvas.getContext("2d");
+            if (color === 'blue') {
+                var myColor = "#006699";
+            } else {
+                var myColor = "#d9534f";
+            }
+
+            // draw the circle
+            mainContext.beginPath();
+            var radius = 20;
+            mainContext.arc(x, y, radius, 0, Math.PI * 2, false);
+            mainContext.closePath();
+            // color in the circle
+            mainContext.fillStyle = myColor;
+            mainContext.fill();
+            COLUMN.addCol('col' + col);
+
+            //enable chevrons is computer move was compleated
+            if (color === 'red') {
+                enableChevron();
+            }
+        }
+
+        //animation
+        function animate(col, color) {
+            var mainCanvas = document.querySelector("#canvas");
+            var mainContext = mainCanvas.getContext("2d");
+            if (color === 'blue') {
+                var myColor = "#006699";
+            } else {
+                var myColor = "#d9534f";
+            }
+            var Ypos = 0;
+            var speed = 2;
+            var acceleration = 1;
+            var Ymax = calculateY(col);
+            var Xpos = calculateX(col);
+
+            //calculate radius
+            var colWidth = $("#referenceCol").width();
+            if (colWidth < 350) {
+                var radius = 16;
+            } else {
+                var radius = 20;
+            }
+
+            function draw() {
+                requestID = requestAnimationFrame(draw);
+
+                // Drawing code goes here
+                mainContext.clearRect(Xpos - 22, Ypos - 50 + speed * acceleration, 60, 60);
+                mainContext.beginPath();
+                mainContext.arc(Xpos, Ypos + speed, radius, 0, Math.PI * 2, false);
+                mainContext.closePath();
+                // color in the circle
+                mainContext.fillStyle = myColor;
+                mainContext.fill();
+                if (Ypos >= Ymax) {
+                    mainContext.clearRect(Xpos - 22, Ypos - 50 + speed * acceleration, 60, 70);
+                    cancelAnimationFrame(requestID);
+                    drawCircle(calculateX(col), calculateY(col), color, col);
+                }
+                Ypos += speed * acceleration;
+                acceleration += 0.15;
+            }
+            draw();
+        }
+
+
+
+
+
+
+
+
+
+
+
     </script>
 {% endblock %}

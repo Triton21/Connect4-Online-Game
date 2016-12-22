@@ -2434,47 +2434,59 @@ computerModule = (function (om, bl, rd, al) {
         switch (myCol) {
             case 1:
                 compMove = 'col1';
+                displayMove(compMove);
                 blueMove(compMove);
                 om.moveCounterAdd();
                 changeUser(startNode);
                 break;
             case 2:
                 compMove = 'col2';
+                displayMove(compMove);
                 blueMove(compMove);
                 om.moveCounterAdd();
                 changeUser(startNode);
                 break;
             case 3:
                 compMove = 'col3';
+                displayMove(compMove);
                 blueMove(compMove);
                 om.moveCounterAdd();
                 changeUser(startNode);
                 break;
             case 4:
                 compMove = 'col4';
+                displayMove(compMove);
                 blueMove(compMove);
                 om.moveCounterAdd();
                 changeUser(startNode);
                 break;
             case 5:
                 compMove = 'col5';
+                displayMove(compMove);
                 blueMove(compMove);
                 om.moveCounterAdd();
                 changeUser(startNode);
                 break;
             case 6:
                 compMove = 'col6';
+                displayMove(compMove);
                 blueMove(compMove);
                 om.moveCounterAdd();
                 changeUser(startNode);
                 break;
             case 7:
                 compMove = 'col7';
+                displayMove(compMove);
                 blueMove(compMove);
                 om.moveCounterAdd();
                 changeUser(startNode);
                 break;
         }
+    }
+    
+    var displayMove = function(compMove) {
+        console.log('displaymove' + compMove);
+        triggerDisplay(compMove);
     }
 
     init = function () {
