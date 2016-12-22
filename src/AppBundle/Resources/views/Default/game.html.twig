@@ -698,7 +698,7 @@
                 requestID = requestAnimationFrame(draw);
 
                 // Drawing code goes here
-                mainContext.clearRect(Xpos - 22, Ypos - 50 + speed * acceleration, 60, 60);
+                mainContext.clearRect(Xpos - 22, Ypos - 50 + speed * acceleration, 45, 60);
                 mainContext.beginPath();
                 mainContext.arc(Xpos, Ypos + speed, radius, 0, Math.PI * 2, false);
                 mainContext.closePath();
@@ -706,7 +706,7 @@
                 mainContext.fillStyle = myColor;
                 mainContext.fill();
                 if (Ypos >= Ymax) {
-                    mainContext.clearRect(Xpos - 22, Ypos - 50 + speed * acceleration, 60, 70);
+                    mainContext.clearRect(Xpos - 22, Ypos - 50 + speed * acceleration, 45, 70);
                     cancelAnimationFrame(requestID);
                     drawCircle(calculateX(col), calculateY(col), color, col);
                 }
