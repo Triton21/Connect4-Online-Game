@@ -327,6 +327,34 @@
         }());
 
         $(document).ready(function () {
+            //animate chevron movement onece when the page loaded
+            $(function () {
+                var chevDirection = -1;
+                var counter = 0;
+                //animation
+                function animateChevron() {
+                    var position = 0;
+                    var limit = -15;
+
+                    function draw() {
+                        requestID = requestAnimationFrame(draw);
+                        $('.myChevron').css('margin-top', position);
+                        // Drawing code goes here
+                        if (counter >= 120) {
+                            cancelAnimationFrame(requestID);
+                        }
+                        position += chevDirection;
+                        counter += 1;
+                        if (position === limit) {
+                            chevDirection = 1;
+                        } else if (position === 0) {
+                            chevDirection = -1;
+                        }
+                    }
+                    draw();
+                }
+                animateChevron();
+            });
 
             //resize canvas when load the page
             var colWidth = $("#referenceCol").width();
@@ -504,7 +532,7 @@
                 e.preventDefault();
                 var oppId = '{{opponent.id}}';
                 var oppName = '{{opponent.name}}';
-                console.log(oppId);
+                //console.log(oppId);
                 $('#myMainPanel').addClass('mypanel');
                 var appNode = '<div class="col-md-12" style="min-height: 50px"></div><div class="arcadeText col-md-12" style="font-size:30px;color:white;">Requesting ' + oppName + '</div>\n\
                                 <div class="col-md-12" style="min-height: 25px"></div><div class="col-sm-offset-5 col-sm-2 textCentered" style="min-height: 25px;"><a href="PLACEHOLDER" class="btn btn-danger btn-sm textCentered arcadeText" role="button">CANCEL</a></div>';
@@ -519,7 +547,7 @@
                     data: data,
                     dataType: "json",
                     success: function (response) {
-                        console.log(response);
+                        //console.log(response);
                         connectUser();
                     }
                 });
@@ -529,7 +557,7 @@
             $(document).on('click', "#notNow", function (e) {
                 e.preventDefault();
                 var oppId = $(this).attr('action-data');
-                console.log(oppId);
+                //console.log(oppId);
                 var data = {'oppId': oppId};
                 $.ajax({
                     url: "{{ path('app_ajaxrejectplay')}}",
@@ -538,7 +566,7 @@
                     data: data,
                     dataType: "json",
                     success: function (response) {
-                        console.log(response);
+                        //console.log(response);
                         if (response) {
                             window.location.href = "{{ path('app_main')}}";
                         }
@@ -552,8 +580,8 @@
                 var modal = document.getElementById('myModal');
                 modal.style.display = "none";
                 var oppId = $(this).attr('action-data');
-                console.log('button pressed');
-                console.log(oppId);
+                //console.log('button pressed');
+                //console.log(oppId);
 
                 var myUrl = "{{path('app_ajaxconnectuser')}}";
                 var data = {'oppId': oppId};
@@ -564,7 +592,7 @@
                     data: data,
                     dataType: "json",
                     success: function (response) {
-                        console.log(response);
+                        //console.log(response);
                         if (response == 'opponent exist') {
                             window.location.href = "{{ path('app_game')}}";
                         }
@@ -586,16 +614,16 @@
                         dataType: "json",
                         success: function (response) {
                             if (response.oppId != 'no') {
-                                console.log('modal exist');
+                                //console.log('modal exist');
                                 var modal = document.getElementById('myModal');
                                 var contentDiv = document.getElementById('modalContent');
                                 $('#playUser').attr('action-data', response.oppId);
                                 $('#notNow').attr('action-data', response.oppId);
                                 contentDiv.innerHTML = response.oppName + ' wants to play with you!';
                                 modal.style.display = "block";
-                                console.log(response);
+                                //console.log(response);
                             }
-                            console.log(response);
+                            //console.log(response);
                         }
                     });
                 }, 3000);
@@ -616,16 +644,16 @@
                                     window.location.href = "{{ path('app_main')}}";
                                 }
                             } else {
-                                console.log('interval on');
+                                //console.log('interval on');
                             }
                         }
                     });
                 }, 3000);
             }
         });
-        
+
         //animation FROM HERE
-        
+
         function calculateX(col) {
             var colWidth = globalColWidht;
             var mainX = colWidth / 7;
@@ -641,7 +669,7 @@
             var colY = $("#canvas").height() - row * mainY + correctY;
             return colY;
         }
-        
+
         //display controller
         function triggerDisplay(col, color) {
             animate(col, color);
@@ -670,7 +698,7 @@
             mainContext.fill();
             COLUMN.addCol('col' + col);
         }
-        
+
         //animation
         function animate(col, color) {
             var mainCanvas = document.querySelector("#canvas");
@@ -715,15 +743,9 @@
             }
             draw();
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
     </script>
 
 

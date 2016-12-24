@@ -41,6 +41,14 @@ var TABLE = (function () {
     var row6 = {
         start: 0
     };
+    //temporary saves the victory coordinates
+    var victoryCoord = {
+        victory: []
+    };
+    victoryCoordAdd = function(coord) {
+        this.victoryCoord.victory.push(coord);
+        return this;
+    }
     row1Add = function () {
         this.row1 = this.row1 + 1;
         return this;
@@ -75,6 +83,7 @@ var TABLE = (function () {
     };
     resetColumnCheck = function () {
         this.columnCheck = 0;
+        this.victoryCoord = [];
         return this;
     };
     col2Add = function () {
@@ -116,8 +125,10 @@ var TABLE = (function () {
         col5: col5.start,
         col6: col6.start,
         col7: col7.start,
+        victoryCoord: victoryCoord,
         columnCheckAdd: columnCheckAdd,
         resetColumnCheck: resetColumnCheck,
+        victoryCoordAdd: victoryCoordAdd,
         row1Add: row1Add,
         row2Add: row2Add,
         row3Add: row3Add,
@@ -681,6 +692,8 @@ connectModule = (function (om) {
                 }
                 if (blueres === '1') {
                     om.columnCheckAdd();
+                    //om.victoryCoordAdd([data, rowNum]);
+                    //console.log('VICTORYCOORD ' + om.victoryCoord());
                 } else {
                     om.resetColumnCheck();
                 }
