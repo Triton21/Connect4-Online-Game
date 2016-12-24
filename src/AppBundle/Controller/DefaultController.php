@@ -128,7 +128,7 @@ class DefaultController extends Controller {
         $user = $this->get('session')->get('user');
         $myId = $user['userId'];
         $allUser = $em->getRepository('AppBundle:Player')
-                ->findAll();
+                ->findPlayers();
         $html = $this->renderView('AppBundle:Default:userspage.html.twig', array(
             'myId' => $myId, 'allUser' => $allUser));
 

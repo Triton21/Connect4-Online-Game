@@ -32,5 +32,16 @@ class PlayerRepository extends \Doctrine\ORM\EntityRepository
                         ->getOneOrNullResult();
     }
     
+    public function findPlayers() {
+
+        $qb = $this->createQueryBuilder('c')
+                ->select('c')
+                ->addOrderBy('c.id', 'DESC')
+                ->setMaxResults(20);
+
+        return $qb->getQuery()
+                        ->getResult();
+    }
+    
     
 }
