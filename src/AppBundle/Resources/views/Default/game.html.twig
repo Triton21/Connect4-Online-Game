@@ -737,6 +737,13 @@
                     mainContext.clearRect(Xpos - 22, Ypos - 50 + speed * acceleration, 45, 70);
                     cancelAnimationFrame(requestID);
                     drawCircle(calculateX(col), calculateY(col), color, col);
+                    //end of game check if the table if full
+                    if (TABLE.moveCounter === 42) {
+                        if ($('#playAgain').css('display') == 'none') {
+                            $('#victory').html('GAME IS DRAW');
+                            $('#playAgain').show();
+                        }
+                    }
                 }
                 Ypos += speed * acceleration;
                 acceleration += 0.15;

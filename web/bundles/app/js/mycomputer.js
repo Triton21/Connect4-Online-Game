@@ -800,7 +800,7 @@ computerModule = (function (om, bl, rd, al, cl) {
             checkresultRow(data, rowNum, color);
             checkDiagonalLeft(data, rowNum, color);
             checkDiagonalRight(data, rowNum, color);
-            checkEnd();
+            //checkEnd();
         } else {
             var color = 'red';
             var colNum = data.charAt(3);
@@ -814,7 +814,7 @@ computerModule = (function (om, bl, rd, al, cl) {
             checkresultRow(data, rowNum, color);
             checkDiagonalLeft(data, rowNum, color);
             checkDiagonalRight(data, rowNum, color);
-            checkEnd();
+            //checkEnd();
         }
     }
 
@@ -1020,6 +1020,8 @@ computerModule = (function (om, bl, rd, al, cl) {
             }
             k = k + 2;
         }
+        
+        
         return false;
     }
 
@@ -2509,7 +2511,7 @@ computerModule = (function (om, bl, rd, al, cl) {
                 }
                 //animation
                 var myCol = data.substring(3);
-                triggerDisplay(myCol, userColor);
+                triggerDisplay(myCol, userColor, pcColor);
                 setTimeout(function () {
                     if ($('#playAgain').css('display') == 'none') {
                         computerMove(pcColor, userColor);

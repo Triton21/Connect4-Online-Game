@@ -1,4 +1,7 @@
 var TABLE = (function () {
+    var moveCounter = {
+        start: 0
+    };
     var col1 = {
         start: 0
     };
@@ -49,6 +52,10 @@ var TABLE = (function () {
         this.victoryCoord.victory.push(coord);
         return this;
     }
+    moveCounterAdd = function () {
+        this.moveCounter = this.moveCounter + 1;
+        return this;
+    };
     row1Add = function () {
         this.row1 = this.row1 + 1;
         return this;
@@ -112,6 +119,7 @@ var TABLE = (function () {
     };
     return {
         columnCheck: columnCheck.start,
+        moveCounter: moveCounter.start,
         row1: row1.start,
         row2: row2.start,
         row3: row3.start,
@@ -129,6 +137,7 @@ var TABLE = (function () {
         columnCheckAdd: columnCheckAdd,
         resetColumnCheck: resetColumnCheck,
         victoryCoordAdd: victoryCoordAdd,
+        moveCounterAdd: moveCounterAdd,
         row1Add: row1Add,
         row2Add: row2Add,
         row3Add: row3Add,
@@ -161,30 +170,37 @@ connectModule = (function (om) {
         switch (data) {
             case 'col1':
                 om.col1Add();
+                om.moveCounterAdd();
                 insertButton(data, om.col1);
                 break;
             case 'col2':
                 om.col2Add();
+                om.moveCounterAdd();
                 insertButton(data, om.col2);
                 break;
             case 'col3':
                 om.col3Add();
+                om.moveCounterAdd();
                 insertButton(data, om.col3);
                 break;
             case 'col4':
                 om.col4Add();
+                om.moveCounterAdd();
                 insertButton(data, om.col4);
                 break;
             case 'col5':
                 om.col5Add();
+                om.moveCounterAdd();
                 insertButton(data, om.col5);
                 break;
             case 'col6':
                 om.col6Add();
+                om.moveCounterAdd();
                 insertButton(data, om.col6);
                 break;
             case 'col7':
                 om.col7Add();
+                om.moveCounterAdd();
                 insertButton(data, om.col7);
                 break;
         }
