@@ -683,21 +683,7 @@ computerModule = (function (om, bl, rd, al, cl) {
         }
     }
     victory = function (color) {
-        if (color === 'blue') {
-            var victory = document.getElementById('victory');
-        } else {
-            var victory = document.getElementById('victory');
-        }
-        $("#a-col").remove();
-        $("#b-col").remove();
-        $("#c-col").remove();
-        $("#d-col").remove();
-        $("#e-col").remove();
-        $("#f-col").remove();
-        $("#g-col").remove();
-        victory.innerHTML = color + ' wins!';
-        var playAgain = document.getElementById('playAgain');
-        playAgain.removeAttribute("style");
+        animateVictory(color);
     }
 
     removeColArrow = function (colNum) {
@@ -1020,8 +1006,8 @@ computerModule = (function (om, bl, rd, al, cl) {
             }
             k = k + 2;
         }
-        
-        
+
+
         return false;
     }
 
@@ -1285,7 +1271,7 @@ computerModule = (function (om, bl, rd, al, cl) {
         return false;
     }
 
-    defenseDiagonalLeft = function (thisColor) {
+    victoryDiagonalLeft = function (thisColor) {
         om.resetDefenseCheck();
         // 1st diagonal
         var i = 7, j = 1;
@@ -1550,9 +1536,334 @@ computerModule = (function (om, bl, rd, al, cl) {
         }
         return false;
     };
+    
+    
+    defenseDiagonalLeft = function (thisColor) {
+        om.resetDefenseCheck();
+        // 1st diagonal
+        var i = 7, j = 1;
+        while (i >= 2) {
+            if (thisColor === 'blue') {
+                var myCoord = 'red' + i + j;
+                var myPosition = rd.getRed(myCoord);
+            } else { 
+                var myCoord = 'blue' + i + j;
+                var myPosition = bl.getBlue(myCoord);
+            }
+            if (myPosition === 1) {
+                om.defenseCheckAdd();
+                if (om.defenseCheck === 3) {
+                    //console.log('diagleft');
+                    var nextRightAll = 'all' + (i - 1) + (j + 1);
+                    var nextRightAllPos = al.getAll(nextRightAll);
+                    if (nextRightAllPos === 0) {
+                        var nextRightLow = 'all' + (i - 1) + j;
+                        var nextRightLowPos = al.getAll(nextRightLow);
+                        if (nextRightLowPos === 1) {
+                            myCol = i - 1;
+                            om.resetDefenseCheck();
+                            return myCol;
+                        }
+                    }
+                    if ((i + 3) <= 7) {
+                        var nextLeftAll = 'all' + (i + 3) + (j - 3);
+                        var nextLeftAllPos = al.getAll(nextLeftAll);
+                        if (nextLeftAllPos === 0) {
+                            if ((j - 3) === 1) {
+                                myCol = i + 3;
+                                om.resetDefenseCheck();
+                                return myCol;
+                            }
+                            if ((j - 4) >= 1) {
+                                var nextRightLow = 'all' + (i + 3) + (j - 4);
+                                var nextRightLowPos = al.getAll(nextRightLow);
+                                if (nextRightLowPos === 1) {
+                                    myCol = i + 3;
+                                    om.resetDefenseCheck();
+                                    return myCol;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            } else {
+                om.resetDefenseCheck();
+            }
+            j++;
+            i--;
+        }
+
+        // 2nd diagonal
+        var i = 6, j = 1;
+        while (i >= 1) {
+           if (thisColor === 'blue') {
+                var myCoord = 'red' + i + j;
+                var myPosition = rd.getRed(myCoord);
+            } else { 
+                var myCoord = 'blue' + i + j;
+                var myPosition = bl.getBlue(myCoord);
+            }
+            if (myPosition === 1) {
+                om.defenseCheckAdd();
+                if (om.defenseCheck === 3) {
+                    //console.log('diagleft');
+                    var nextRightAll = 'all' + (i - 1) + (j + 1);
+                    var nextRightAllPos = al.getAll(nextRightAll);
+                    if (nextRightAllPos === 0) {
+                        var nextRightLow = 'all' + (i - 1) + j;
+                        var nextRightLowPos = al.getAll(nextRightLow);
+                        if (nextRightLowPos === 1) {
+                            myCol = i - 1;
+                            om.resetDefenseCheck();
+                            return myCol;
+                        }
+                    }
+                    if ((i + 3) <= 7) {
+                        var nextLeftAll = 'all' + (i + 3) + (j - 3);
+                        var nextLeftAllPos = al.getAll(nextLeftAll);
+                        if (nextLeftAllPos === 0) {
+                            if ((j - 3) === 1) {
+                                myCol = i + 3;
+                                om.resetDefenseCheck();
+                                return myCol;
+                            }
+                            if ((j - 4) >= 1) {
+                                var nextRightLow = 'all' + (i + 3) + (j - 4);
+                                var nextRightLowPos = al.getAll(nextRightLow);
+                                if (nextRightLowPos === 1) {
+                                    myCol = i + 3;
+                                    om.resetDefenseCheck();
+                                    return myCol;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            } else {
+                om.resetDefenseCheck();
+            }
+            j++;
+            i--;
+        }
+        // 3rd diagonal
+        var i = 5, j = 1;
+        while (i >= 1) {
+            if (thisColor === 'blue') {
+                var myCoord = 'red' + i + j;
+                var myPosition = rd.getRed(myCoord);
+            } else { 
+                var myCoord = 'blue' + i + j;
+                var myPosition = bl.getBlue(myCoord);
+            }
+            if (myPosition === 1) {
+                om.defenseCheckAdd();
+                if (om.defenseCheck === 3) {
+                    //console.log('diagleft');
+                    var nextRightAll = 'all' + (i - 1) + (j + 1);
+                    var nextRightAllPos = al.getAll(nextRightAll);
+                    if (nextRightAllPos === 0) {
+                        var nextRightLow = 'all' + (i - 1) + j;
+                        var nextRightLowPos = al.getAll(nextRightLow);
+                        if (nextRightLowPos === 1) {
+                            myCol = i - 1;
+                            om.resetDefenseCheck();
+                            return myCol;
+                        }
+                    }
+                    if ((i + 3) <= 7) {
+                        var nextLeftAll = 'all' + (i + 3) + (j - 3);
+                        var nextLeftAllPos = al.getAll(nextLeftAll);
+                        if (nextLeftAllPos === 0) {
+                            if ((j - 3) === 1) {
+                                myCol = i + 3;
+                                om.resetDefenseCheck();
+                                return myCol;
+                            }
+                            if ((j - 4) >= 1) {
+                                var nextRightLow = 'all' + (i + 3) + (j - 4);
+                                var nextRightLowPos = al.getAll(nextRightLow);
+                                if (nextRightLowPos === 1) {
+                                    myCol = i + 3;
+                                    om.resetDefenseCheck();
+                                    return myCol;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            } else {
+                om.resetDefenseCheck();
+            }
+            j++;
+            i--;
+        }
+        // 4th diagonal
+        var i = 4, j = 1;
+        while (i >= 1) {
+            if (thisColor === 'blue') {
+                var myCoord = 'red' + i + j;
+                var myPosition = rd.getRed(myCoord);
+            } else { 
+                var myCoord = 'blue' + i + j;
+                var myPosition = bl.getBlue(myCoord);
+            }
+            if (myPosition === 1) {
+                om.defenseCheckAdd();
+                if (om.defenseCheck === 3) {
+                    //console.log('diagleft');
+                    var nextRightAll = 'all' + (i - 1) + (j + 1);
+                    var nextRightAllPos = al.getAll(nextRightAll);
+                    if (nextRightAllPos === 0) {
+                        var nextRightLow = 'all' + (i - 1) + j;
+                        var nextRightLowPos = al.getAll(nextRightLow);
+                        if (nextRightLowPos === 1) {
+                            myCol = i - 1;
+                            om.resetDefenseCheck();
+                            return myCol;
+                        }
+                    }
+                    if ((i + 3) <= 7) {
+                        var nextLeftAll = 'all' + (i + 3) + (j - 3);
+                        var nextLeftAllPos = al.getAll(nextLeftAll);
+                        if (nextLeftAllPos === 0) {
+                            if ((j - 3) === 1) {
+                                myCol = i + 3;
+                                om.resetDefenseCheck();
+                                return myCol;
+                            }
+                            if ((j - 4) >= 1) {
+                                var nextRightLow = 'all' + (i + 3) + (j - 4);
+                                var nextRightLowPos = al.getAll(nextRightLow);
+                                if (nextRightLowPos === 1) {
+                                    myCol = i + 3;
+                                    om.resetDefenseCheck();
+                                    return myCol;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            } else {
+                om.resetDefenseCheck();
+            }
+            j++;
+            i--;
+        }
+        // 5th diagonal
+        var i = 7, j = 2;
+        while (i >= 3) {
+            if (thisColor === 'blue') {
+                var myCoord = 'red' + i + j;
+                var myPosition = rd.getRed(myCoord);
+            } else { 
+                var myCoord = 'blue' + i + j;
+                var myPosition = bl.getBlue(myCoord);
+            }
+            if (myPosition === 1) {
+                om.defenseCheckAdd();
+                if (om.defenseCheck === 3) {
+                    //console.log('diagleft');
+                    var nextRightAll = 'all' + (i - 1) + (j + 1);
+                    var nextRightAllPos = al.getAll(nextRightAll);
+                    if (nextRightAllPos === 0) {
+                        var nextRightLow = 'all' + (i - 1) + j;
+                        var nextRightLowPos = al.getAll(nextRightLow);
+                        if (nextRightLowPos === 1) {
+                            myCol = i - 1;
+                            om.resetDefenseCheck();
+                            return myCol;
+                        }
+                    }
+                    if ((i + 3) <= 7) {
+                        var nextLeftAll = 'all' + (i + 3) + (j - 3);
+                        var nextLeftAllPos = al.getAll(nextLeftAll);
+                        if (nextLeftAllPos === 0) {
+                            if ((j - 3) === 1) {
+                                myCol = i + 3;
+                                om.resetDefenseCheck();
+                                return myCol;
+                            }
+                            if ((j - 4) >= 1) {
+                                var nextRightLow = 'all' + (i + 3) + (j - 4);
+                                var nextRightLowPos = al.getAll(nextRightLow);
+                                if (nextRightLowPos === 1) {
+                                    myCol = i + 3;
+                                    om.resetDefenseCheck();
+                                    return myCol;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            } else {
+                om.resetDefenseCheck();
+            }
+            j++;
+            i--;
+        }
+        // 6th diagonal
+        var i = 7, j = 3;
+        while (i >= 4) {
+            if (thisColor === 'blue') {
+                var myCoord = 'red' + i + j;
+                var myPosition = rd.getRed(myCoord);
+            } else { 
+                var myCoord = 'blue' + i + j;
+                var myPosition = bl.getBlue(myCoord);
+            }
+            if (myPosition === 1) {
+                om.defenseCheckAdd();
+                if (om.defenseCheck === 3) {
+                    //console.log('diagleft');
+                    var nextRightAll = 'all' + (i - 1) + (j + 1);
+                    var nextRightAllPos = al.getAll(nextRightAll);
+                    if (nextRightAllPos === 0) {
+                        var nextRightLow = 'all' + (i - 1) + j;
+                        var nextRightLowPos = al.getAll(nextRightLow);
+                        if (nextRightLowPos === 1) {
+                            myCol = i - 1;
+                            om.resetDefenseCheck();
+                            return myCol;
+                        }
+                    }
+                    if ((i + 3) <= 7) {
+                        var nextLeftAll = 'all' + (i + 3) + (j - 3);
+                        var nextLeftAllPos = al.getAll(nextLeftAll);
+                        if (nextLeftAllPos === 0) {
+                            if ((j - 3) === 1) {
+                                myCol = i + 3;
+                                om.resetDefenseCheck();
+                                return myCol;
+                            }
+                            if ((j - 4) >= 1) {
+                                var nextRightLow = 'all' + (i + 3) + (j - 4);
+                                var nextRightLowPos = al.getAll(nextRightLow);
+                                if (nextRightLowPos === 1) {
+                                    myCol = i + 3;
+                                    om.resetDefenseCheck();
+                                    return myCol;
+                                }
+                            }
+                        }
+                    }
+
+                }
+            } else {
+                om.resetDefenseCheck();
+            }
+            j++;
+            i--;
+        }
+        return false;
+    };
 
 
-    defenseDiagonalRight = function (thisColor) {
+    victoryDiagonalRight = function (thisColor) {
         var myCol;
         //console.log('defdiag');
         om.resetDefenseCheck();
@@ -1807,6 +2118,307 @@ computerModule = (function (om, bl, rd, al, cl) {
                 var myPosition = bl.getBlue(myCoord);
             } else {
                 var myPosition = rd.getRed(myCoord);
+            }
+            if (myPosition === 1) {
+                om.defenseCheckAdd();
+                if (om.defenseCheck === 3) {
+                    var nextRightAll = 'all' + (i + 1) + (j + 1);
+                    var nextRightAllPos = al.getAll(nextRightAll);
+                    if (nextRightAllPos === 0) {
+                        var nextRightLow = 'all' + (i + 1) + j;
+                        var nextRightLowPos = al.getAll(nextRightLow);
+                        if (nextRightLowPos === 1) {
+                            myCol = i + 1;
+                            om.resetDefenseCheck();
+                            return myCol;
+                        }
+                    }
+                    var nextLeftAll = 'all' + (i - 3) + (j - 3);
+                    var nextLeftAllPos = al.getAll(nextLeftAll);
+                    if (nextLeftAllPos === 0) {
+                        if ((j - 3) === 1) {
+                            myCol = i - 3;
+                            om.resetDefenseCheck();
+                            return myCol;
+                        }
+                        if ((j - 4) >= 1) {
+                            var nextRightLow = 'all' + (i - 3) + (j - 4);
+                            var nextRightLowPos = al.getAll(nextRightLow);
+                            if (nextRightLowPos === 1) {
+                                myCol = i - 3;
+                                om.resetDefenseCheck();
+                                return myCol;
+                            }
+                        }
+                    }
+                }
+            } else {
+                om.resetDefenseCheck();
+            }
+            j++;
+            i++;
+        }
+        return false;
+    };
+    
+    defenseDiagonalRight = function (thisColor) {
+        var myCol;
+        //console.log('defdiag');
+        om.resetDefenseCheck();
+        // 1st diagonal
+        var i = 1, j = 1;
+        while (i <= 6) {
+            if (thisColor === 'blue') {
+                var myCoord = 'red' + i + j;
+                var myPosition = rd.getRed(myCoord);
+            } else { 
+                var myCoord = 'blue' + i + j;
+                var myPosition = bl.getBlue(myCoord);
+            }
+            if (myPosition === 1) {
+                om.defenseCheckAdd();
+                if (om.defenseCheck === 3) {
+                    var nextRightAll = 'all' + (i + 1) + (j + 1);
+                    var nextRightAllPos = al.getAll(nextRightAll);
+                    if (nextRightAllPos === 0) {
+                        var nextRightLow = 'all' + (i + 1) + j;
+                        var nextRightLowPos = al.getAll(nextRightLow);
+                        if (nextRightLowPos === 1) {
+                            myCol = i + 1;
+                            om.resetDefenseCheck();
+                            return myCol;
+                        }
+                    }
+                    var nextLeftAll = 'all' + (i - 3) + (j - 3);
+                    var nextLeftAllPos = al.getAll(nextLeftAll);
+                    if (nextLeftAllPos === 0) {
+                        if ((j - 3) === 1) {
+                            myCol = i - 3;
+                            om.resetDefenseCheck();
+                            return myCol;
+                        }
+                        if ((j - 4) >= 1) {
+                            var nextRightLow = 'all' + (i - 3) + (j - 4);
+                            var nextRightLowPos = al.getAll(nextRightLow);
+                            if (nextRightLowPos === 1) {
+                                myCol = i - 3;
+                                om.resetDefenseCheck();
+                                return myCol;
+                            }
+                        }
+                    }
+                }
+            } else {
+                om.resetDefenseCheck();
+            }
+            j++;
+            i++;
+        }
+        // 2nd diagonal rigth
+        var i = 2, j = 1;
+        while (i <= 7) {
+            if (thisColor === 'blue') {
+                var myCoord = 'red' + i + j;
+                var myPosition = rd.getRed(myCoord);
+            } else { 
+                var myCoord = 'blue' + i + j;
+                var myPosition = bl.getBlue(myCoord);
+            }
+            if (myPosition === 1) {
+                om.defenseCheckAdd();
+                if (om.defenseCheck === 3) {
+                    var nextRightAll = 'all' + (i + 1) + (j + 1);
+                    var nextRightAllPos = al.getAll(nextRightAll);
+                    if (nextRightAllPos === 0) {
+                        var nextRightLow = 'all' + (i + 1) + j;
+                        var nextRightLowPos = al.getAll(nextRightLow);
+                        if (nextRightLowPos === 1) {
+                            myCol = i + 1;
+                            om.resetDefenseCheck();
+                            return myCol;
+                        }
+                    }
+                    var nextLeftAll = 'all' + (i - 3) + (j - 3);
+                    var nextLeftAllPos = al.getAll(nextLeftAll);
+                    if (nextLeftAllPos === 0) {
+                        if ((j - 3) === 1) {
+                            myCol = i - 3;
+                            om.resetDefenseCheck();
+                            return myCol;
+                        }
+                        if ((j - 4) >= 1) {
+                            var nextRightLow = 'all' + (i - 3) + (j - 4);
+                            var nextRightLowPos = al.getAll(nextRightLow);
+                            if (nextRightLowPos === 1) {
+                                myCol = i - 3;
+                                om.resetDefenseCheck();
+                                return myCol;
+                            }
+                        }
+                    }
+                }
+            } else {
+                om.resetDefenseCheck();
+            }
+            j++;
+            i++;
+        }
+        // 3rd diagonal rigth
+        var i = 3, j = 1;
+        while (i <= 7) {
+             if (thisColor === 'blue') {
+                var myCoord = 'red' + i + j;
+                var myPosition = rd.getRed(myCoord);
+            } else { 
+                var myCoord = 'blue' + i + j;
+                var myPosition = bl.getBlue(myCoord);
+            }
+            if (myPosition === 1) {
+                om.defenseCheckAdd();
+                if (om.defenseCheck === 3) {
+                    var nextRightAll = 'all' + (i + 1) + (j + 1);
+                    var nextRightAllPos = al.getAll(nextRightAll);
+                    if (nextRightAllPos === 0) {
+                        var nextRightLow = 'all' + (i + 1) + j;
+                        var nextRightLowPos = al.getAll(nextRightLow);
+                        if (nextRightLowPos === 1) {
+                            myCol = i + 1;
+                            om.resetDefenseCheck();
+                            return myCol;
+                        }
+                    }
+                    var nextLeftAll = 'all' + (i - 3) + (j - 3);
+                    var nextLeftAllPos = al.getAll(nextLeftAll);
+                    if (nextLeftAllPos === 0) {
+                        if ((j - 3) === 1) {
+                            myCol = i - 3;
+                            om.resetDefenseCheck();
+                            return myCol;
+                        }
+                        if ((j - 4) >= 1) {
+                            var nextRightLow = 'all' + (i - 3) + (j - 4);
+                            var nextRightLowPos = al.getAll(nextRightLow);
+                            if (nextRightLowPos === 1) {
+                                myCol = i - 3;
+                                om.resetDefenseCheck();
+                                return myCol;
+                            }
+                        }
+                    }
+                }
+            } else {
+                om.resetDefenseCheck();
+            }
+            j++;
+            i++;
+        }
+        // 4th diagonal rigth
+        var i = 4, j = 1;
+        while (i <= 7) {
+             if (thisColor === 'blue') {
+                var myCoord = 'red' + i + j;
+                var myPosition = rd.getRed(myCoord);
+            } else { 
+                var myCoord = 'blue' + i + j;
+                var myPosition = bl.getBlue(myCoord);
+            }
+            if (myPosition === 1) {
+                om.defenseCheckAdd();
+                if (om.defenseCheck === 3) {
+                    var nextRightAll = 'all' + (i + 1) + (j + 1);
+                    var nextRightAllPos = al.getAll(nextRightAll);
+                    if (nextRightAllPos === 0) {
+                        var nextRightLow = 'all' + (i + 1) + j;
+                        var nextRightLowPos = al.getAll(nextRightLow);
+                        if (nextRightLowPos === 1) {
+                            myCol = i + 1;
+                            om.resetDefenseCheck();
+                            return myCol;
+                        }
+                    }
+                    var nextLeftAll = 'all' + (i - 3) + (j - 3);
+                    var nextLeftAllPos = al.getAll(nextLeftAll);
+                    if (nextLeftAllPos === 0) {
+                        if ((j - 3) === 1) {
+                            myCol = i - 3;
+                            om.resetDefenseCheck();
+                            return myCol;
+                        }
+                        if ((j - 4) >= 1) {
+                            var nextRightLow = 'all' + (i - 3) + (j - 4);
+                            var nextRightLowPos = al.getAll(nextRightLow);
+                            if (nextRightLowPos === 1) {
+                                myCol = i - 3;
+                                om.resetDefenseCheck();
+                                return myCol;
+                            }
+                        }
+                    }
+                }
+            } else {
+                om.resetDefenseCheck();
+            }
+            j++;
+            i++;
+        }
+        // 5th diagonal rigth
+        var i = 1, j = 2;
+        while (i <= 5) {
+            if (thisColor === 'blue') {
+                var myCoord = 'red' + i + j;
+                var myPosition = rd.getRed(myCoord);
+            } else { 
+                var myCoord = 'blue' + i + j;
+                var myPosition = bl.getBlue(myCoord);
+            }
+            if (myPosition === 1) {
+                om.defenseCheckAdd();
+                if (om.defenseCheck === 3) {
+                    var nextRightAll = 'all' + (i + 1) + (j + 1);
+                    var nextRightAllPos = al.getAll(nextRightAll);
+                    if (nextRightAllPos === 0) {
+                        var nextRightLow = 'all' + (i + 1) + j;
+                        var nextRightLowPos = al.getAll(nextRightLow);
+                        if (nextRightLowPos === 1) {
+                            myCol = i + 1;
+                            om.resetDefenseCheck();
+                            return myCol;
+                        }
+                    }
+                    var nextLeftAll = 'all' + (i - 3) + (j - 3);
+                    var nextLeftAllPos = al.getAll(nextLeftAll);
+                    if (nextLeftAllPos === 0) {
+                        if ((j - 3) === 1) {
+                            myCol = i - 3;
+                            om.resetDefenseCheck();
+                            return myCol;
+                        }
+                        if ((j - 4) >= 1) {
+                            var nextRightLow = 'all' + (i - 3) + (j - 4);
+                            var nextRightLowPos = al.getAll(nextRightLow);
+                            if (nextRightLowPos === 1) {
+                                myCol = i - 3;
+                                om.resetDefenseCheck();
+                                return myCol;
+                            }
+                        }
+                    }
+                }
+            } else {
+                om.resetDefenseCheck();
+            }
+            j++;
+            i++;
+        }
+        // 5th diagonal rigth
+        var i = 1, j = 3;
+        while (i <= 4) {
+            if (thisColor === 'blue') {
+                var myCoord = 'red' + i + j;
+                var myPosition = rd.getRed(myCoord);
+            } else { 
+                var myCoord = 'blue' + i + j;
+                var myPosition = bl.getBlue(myCoord);
             }
             if (myPosition === 1) {
                 om.defenseCheckAdd();
@@ -2169,7 +2781,7 @@ computerModule = (function (om, bl, rd, al, cl) {
         return false;
     };
 
-    avoidCheck = function computerMove(thisColor, myCol) {
+    avoidCheck = function (thisColor, myCol) {
         om.resetDefenseCheck();
         if (thisColor === 'blue') {
             userColor = 'red';
@@ -2258,33 +2870,43 @@ computerModule = (function (om, bl, rd, al, cl) {
 
 
 
-        //console.log(om.moveCounter);
+        console.log('MOVE COUNTER ' + om.moveCounter);
         /*
-         if (om.moveCounter <= 9) {
-         if (om.moveCounter === 1) {
-         myCol = 2;
-         }
-         if (om.moveCounter === 3) {
-         myCol = 3;
-         }
-         if (om.moveCounter === 5) {
-         //console.log(om.moveCounter);
-         myCol = 5;
-         }
-         if (om.moveCounter === 7) {
-         //console.log(om.moveCounter);
-         myCol = 7;
-         }
-         if (om.moveCounter === 9) {
-         //console.log(om.moveCounter);
-         myCol = 1;
-         }
-         } else {
-         var myCol = false;
-         }
-         */
-
-
+        if (om.moveCounter <= 13) {
+            if (om.moveCounter === 1) {
+                myCol = 2;
+            }
+            if (om.moveCounter === 3) {
+                myCol = 3;
+            }
+            if (om.moveCounter === 5) {
+                //console.log(om.moveCounter);
+                myCol = 4;
+            }
+            
+            if (om.moveCounter === 7) {
+                //console.log(om.moveCounter);
+                myCol = 4;
+            }
+            if (om.moveCounter === 9) {
+                //console.log(om.moveCounter);
+                myCol = 7;
+            }
+            if (om.moveCounter === 11) {
+                //console.log(om.moveCounter);
+                myCol = 6;
+            }
+            if (om.moveCounter === 13) {
+                //console.log(om.moveCounter);
+                myCol = 7;
+            }
+        } else {
+            var myCol = false;
+        }
+        */
+        
+       
+        
         //First move
         if (om.moveCounter === 1) {
             myCol = findfirstMove(userColor);
@@ -2302,7 +2924,6 @@ computerModule = (function (om, bl, rd, al, cl) {
                 console.log('third move');
             }
         }
-
 
         // check row for victory
         if (typeof myCol === 'undefined' || myCol === false) {
@@ -2322,11 +2943,9 @@ computerModule = (function (om, bl, rd, al, cl) {
             }
         }
 
-
-
         //check Victory diagonal left
         if (typeof myCol === 'undefined' || myCol === false) {
-            myCol = defenseDiagonalLeft(pcColor);
+            myCol = victoryDiagonalLeft(pcColor);
             if (myCol) {
                 myCol = checkMaxCol(myCol);
                 console.log('victory diag left move');
@@ -2334,7 +2953,7 @@ computerModule = (function (om, bl, rd, al, cl) {
         }
         //check Victory diagonal rigth
         if (typeof myCol === 'undefined' || myCol === false) {
-            myCol = defenseDiagonalRight(pcColor);
+            myCol = victoryDiagonalRight(pcColor);
             if (myCol) {
                 myCol = checkMaxCol(myCol);
                 console.log('victory diag right move');
@@ -2352,35 +2971,18 @@ computerModule = (function (om, bl, rd, al, cl) {
         }
 
 
-        // defense row for three
+        // defense row for three diagonal left
         if (typeof myCol === 'undefined' || myCol === false) {
-            myCol = checkVictoryRow(userColor);
+            myCol = defenseDiagonalLeft(pcColor);
             if (myCol) {
                 myCol = checkMaxCol(myCol);
-                console.log('defense row for three');
+                console.log('defense diag left move');
             }
         }
-
-        // defense for column
-        if (typeof myCol === 'undefined' || myCol === false) {
-            myCol = checkVictoryCol(userColor);
-            if (myCol) {
-                myCol = checkMaxCol(myCol);
-                console.log('defense Col move');
-            }
-        }
-
-        //check defense diagonal left
-        if (typeof myCol === 'undefined' || myCol === false) {
-            myCol = defenseDiagonalLeft(userColor);
-            if (myCol) {
-                myCol = checkMaxCol(myCol);
-                console.log('defense diag left');
-            }
-        }
+        
         //check defense diagonal rigth
         if (typeof myCol === 'undefined' || myCol === false) {
-            myCol = defenseDiagonalRight(userColor);
+            myCol = defenseDiagonalRight(pcColor);
             if (myCol) {
                 myCol = checkMaxCol(myCol);
                 console.log('defense diag rigth');
@@ -2437,9 +3039,7 @@ computerModule = (function (om, bl, rd, al, cl) {
         //insert value to column.js to calculate column positions for animation
         triggerDisplay(myCol, pcColor);
 
-        //var addItem = 'col' + myCol;
-        //console.log(addItem + ' COMPADD');
-        //cl.addCol(addItem);
+        console.log('FINAL MOVE: ' + myCol);
 
         switch (myCol) {
             case 1:

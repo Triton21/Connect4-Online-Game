@@ -732,9 +732,10 @@ connectModule = (function (om) {
             var name = nameNode.getAttribute('action-name');
         }
         disableArrow();
-        victory.innerHTML = name + ' wins!';
-        var playAgain = document.getElementById('playAgain');
-        playAgain.removeAttribute("style");
+        animateVictory(name);
+        //victory.innerHTML = name + ' wins!';
+        //var playAgain = document.getElementById('playAgain');
+        //playAgain.removeAttribute("style");
     }
 
     function disableArrow() {
