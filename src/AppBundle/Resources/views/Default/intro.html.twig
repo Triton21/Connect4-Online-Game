@@ -1,0 +1,346 @@
+{% extends "AppBundle:Default:defaultbase.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <style>
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 70%;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .mypanel {
+            background-image: url("{{asset('bundles/app/images/c64loading.gif')}}");
+            min-height: 250px;
+            margin-left:auto;
+            margin-right:auto;
+        }
+        .centered {
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>  
+{% endblock %} 
+
+{% block body %}
+    {#MODAL BOX#}
+    <div class="col-xs-12 col-sm-offset-1 col-sm-10 col-md-offset-3 col-md-6 col-lg-offset-4 col-lg-4 mycol" style="margin-top:8px;">
+        <div class="col-xs-12" id="referenceCol">
+        </div>
+        <div class="row">
+            <div id="canvas-container">
+                <canvas id="canvas" width="400" height="380" style="border:0px;">
+                    This text is displayed if your browser does not support HTML5 Canvas.
+                </canvas>
+            </div>
+        </div>
+
+
+
+    </div>
+
+
+
+
+
+{% endblock %}
+
+{% block javascript %}
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="{{asset('bundles/app/js/column.js')}}"></script>
+    <script>
+        //polyfill for requestanimationFrame
+        (function () {
+            var lastTime = 0;
+            var vendors = ['ms', 'moz', 'webkit', 'o'];
+            for (var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+                window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+                window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame']
+                        || window[vendors[x] + 'CancelRequestAnimationFrame'];
+            }
+
+            if (!window.requestAnimationFrame)
+                window.requestAnimationFrame = function (callback, element) {
+                    var currTime = new Date().getTime();
+                    var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+                    var id = window.setTimeout(function () {
+                        callback(currTime + timeToCall);
+                    },
+                            timeToCall);
+                    lastTime = currTime + timeToCall;
+                    return id;
+                };
+
+            if (!window.cancelAnimationFrame)
+                window.cancelAnimationFrame = function (id) {
+                    clearTimeout(id);
+                };
+        }());
+
+        $(document).ready(function () {
+
+            var colWidth = $("#referenceCol").width();
+
+            //resize canvas when load the page
+            function resizeCanvas() {
+                var canvas = $("#canvas");
+                canvas.attr('width', colWidth);
+                globalColWidht = canvas.width();
+            }
+            resizeCanvas();
+
+            //resize canvas when change the window
+            var waitForFinalEvent = (function () {
+                var timers = {};
+                return function (callback, ms, uniqueId) {
+                    if (!uniqueId) {
+                        uniqueId = "Don't call this twice without a uniqueId";
+                    }
+                    if (timers[uniqueId]) {
+                        clearTimeout(timers[uniqueId]);
+                    }
+                    timers[uniqueId] = setTimeout(callback, ms);
+                };
+            })();
+
+            $(window).resize(function () {
+                waitForFinalEvent(function () {
+                    var oldWidth = $("#canvas").css("width").replace("px", "");
+                    var oldHeight = $("#canvas").css("height").replace("px", "");
+                    var canvas = $("#canvas");
+                    $("#canvas").css({
+                        "width": $("#referenceCol").width(),
+                        "height": $("#canvas").height()
+                    });
+                    var ratio1 = oldWidth / window.innerWidth;
+                    var ratio2 = oldHeight / window.innerHeight;
+                    canvas.ctx.scale(ratio1, ratio2);
+                    globalColWidht = canvas.width();
+                }, 500, "some unique string");
+            });
+
+            function calculateX(col) {
+                var colWidth = globalColWidht;
+                var mainX = colWidth / 7;
+                var correctX = mainX / 2;
+                var colX = mainX * col - correctX;
+                return colX;
+            }
+
+            function calculateY(col) {
+                var mainY = $("#canvas").height() / 6;
+                var correctY = mainY / 2;
+                var row = COLUMN.getCol('col' + col) + 1;
+                var colY = $("#canvas").height() - row * mainY + correctY;
+                return colY;
+            }
+
+            function calculateYRow(row) {
+                var mainY = $("#canvas").height() / 6;
+                var correctY = mainY / 2;
+                var colY = $("#canvas").height() - row * mainY + correctY;
+                return colY;
+            }
+
+            //draw the final position of the ball
+            function drawCircle(x, y, color, col) {
+                var mainCanvas = document.querySelector("#canvas");
+                var mainContext = mainCanvas.getContext("2d");
+                if (color === 'blue') {
+                    var myColor = "#006699";
+                } else {
+                    var myColor = "#d9534f";
+                }
+
+                // draw the circle
+                mainContext.beginPath();
+                var colWidth = $("#referenceCol").width();
+                if (colWidth < 350) {
+                    var radius = 16;
+                } else {
+                    var radius = 20;
+                }
+                mainContext.arc(x, y, radius, 0, Math.PI * 2, false);
+                mainContext.closePath();
+                // color in the circle
+                mainContext.fillStyle = myColor;
+                mainContext.fill();
+                COLUMN.addCol('col' + col);
+            }
+
+
+            //draw the final position of the ball
+            function drawVictoryCircle(x, y, col) {
+                var mainCanvas = document.querySelector("#canvas");
+                var mainContext = mainCanvas.getContext("2d");
+                var myColor = "#f2f2f2";
+
+                // draw the circle
+                mainContext.beginPath();
+                var colWidth = $("#referenceCol").width();
+                if (colWidth < 350) {
+                    var radius = 16;
+                } else {
+                    var radius = 20;
+                }
+                var colorArray = ['#106d9b', '#3691be', '#409dcb', '#55b3e2', '#5bb9e7', '#6cc6f3', '#77ccf6', '#86d1f6', '#97d7f7', '#aadffa', '#97d7f7', '#86d1f6', '#77ccf6', '#6cc6f3', '#5bb9e7', '#55b3e2', '#409dcb', '#3691be', '#106d9b'];
+                var counter = 1;
+                var colorIndex = 1;
+                function draw() {
+                    requestID = requestAnimationFrame(draw);
+
+                    mainContext.arc(x, y, radius, 0, Math.PI * 2, false);
+                    mainContext.closePath();
+                    // color in the circle
+                    mainContext.fillStyle = colorArray[colorIndex];
+                    mainContext.fill();
+                    if (counter > 40) {
+                        cancelAnimationFrame(requestID);
+                    }
+                    counter += 1;
+                    if (counter % 2 === 0) {
+                        colorIndex += 1;
+                    }
+                }
+                draw();
+
+
+            }
+
+            //animation
+            function animate(col, row, color) {
+                var mainCanvas = document.querySelector("#canvas");
+                var mainContext = mainCanvas.getContext("2d");
+                if (color === 'blue') {
+                    var myColor = "#006699";
+                } else {
+                    var myColor = "#d9534f";
+                }
+                var Ypos = 0;
+                var speed = 2;
+                var acceleration = 1;
+                var Ymax = calculateYRow(row);
+                var Xpos = calculateX(col);
+                //calculate radius
+                var colWidth = $("#referenceCol").width();
+                if (colWidth < 350) {
+                    var radius = 16;
+                } else {
+                    var radius = 20;
+                }
+
+                function draw() {
+                    requestID = requestAnimationFrame(draw);
+                    // Drawing code goes here
+                    mainContext.clearRect(Xpos - 22, Ypos - 50 + speed * acceleration, 45, 60);
+                    mainContext.beginPath();
+                    mainContext.arc(Xpos, Ypos + speed, radius, 0, Math.PI * 2, false);
+                    mainContext.closePath();
+                    // color in the circle
+                    mainContext.fillStyle = myColor;
+                    mainContext.fill();
+                    if (Ypos >= Ymax) {
+                        mainContext.clearRect(Xpos - 22, Ypos - 50 + speed * acceleration, 45, 70);
+                        cancelAnimationFrame(requestID);
+                        drawCircle(calculateX(col), calculateY(col), color, col);
+                        //insert ball to column object
+                    }
+                    Ypos += speed * acceleration;
+                    acceleration += 0.15;
+                }
+                draw();
+            }
+
+            function controller() {
+                var timeShift = 400;
+                setTimeout(function () {
+                    animate(4, 1, 'blue');
+                    setTimeout(function () {
+                        animate(5, 1, 'red');
+                        setTimeout(function () {
+                            animate(5, 2, 'blue');
+                            setTimeout(function () {
+                                animate(4, 2, 'red');
+                                setTimeout(function () {
+                                    animate(3, 1, 'blue');
+                                    setTimeout(function () {
+                                        animate(5, 3, 'red');
+                                        setTimeout(function () {
+                                            animate(4, 3, 'blue');
+                                            setTimeout(function () {
+                                                animate(4, 4, 'red');
+                                                setTimeout(function () {
+                                                    animate(3, 2, 'blue');
+                                                    setTimeout(function () {
+                                                        animate(6, 1, 'red');
+                                                        setTimeout(function () {
+                                                            animate(5, 4, 'blue');
+                                                            setTimeout(function () {
+                                                                animate(6, 2, 'red');
+                                                                setTimeout(function () {
+                                                                    animate(2, 1, 'blue');
+                                                                    setTimeout(function () {
+                                                                        animateVictory();
+                                                                        setTimeout(function () {
+                                                                            window.location.href = "{{path('app_main')}}";
+                                                                        }, 1500);
+                                                                    }, 1000);
+                                                                }, timeShift);
+                                                            }, timeShift);
+                                                        }, timeShift);
+                                                    }, timeShift);
+                                                }, timeShift);
+                                            }, timeShift);
+                                        }, timeShift);
+                                    }, timeShift);
+                                }, timeShift);
+                            }, timeShift);
+                        }, timeShift);
+                    }, timeShift);
+                }, 200);
+            }
+
+            controller();
+
+            function animateVictory() {
+
+                drawVictoryCircle(calculateX(2), calculateYRow(1), 2)
+                drawVictoryCircle(calculateX(3), calculateYRow(2), 3)
+                drawVictoryCircle(calculateX(4), calculateYRow(3), 4)
+                drawVictoryCircle(calculateX(5), calculateYRow(4), 5)
+
+
+            }
+
+
+
+        });
+    </script>
+{% endblock %}

@@ -6,6 +6,10 @@ app_main:
     path:   /main
     defaults: { _controller: AppBundle:Default:main }
     
+app_intro:
+    path:   /connectfour
+    defaults: { _controller: AppBundle:Default:intro }
+    
 app_sologame:
     path:   /sologame
     defaults: { _controller: AppBundle:Default:sologame }

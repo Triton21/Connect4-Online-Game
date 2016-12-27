@@ -50,11 +50,33 @@ class DefaultController extends Controller {
 
             $this->get('session')->set('user', $userArray);
             //var_dump($userArray);die;
-            return $this->redirectToRoute('app_main');
+            return $this->redirectToRoute('app_intro');
         }
 
         return $this->render('AppBundle:Default:index.html.twig', array(
                     'form' => $form->createView(),));
+    }
+
+    /**
+     * play an intor only once
+     */
+    public function introAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+        //check if the session still exist
+        $user = $this->get('session')->get('user');
+        if (!$user) {
+            return $this->redirectToRoute('app_index');
+        }
+        //check if the user entity still exist or has been disabled
+        $userCheck = $em->getRepository('AppBundle:Player')
+                ->find($user['userId']);
+        if (!$userCheck) {
+            $request->getSession()->invalidate(1);
+            return $this->redirectToRoute('app_index');
+        }
+        
+        return $this->render('AppBundle:Default:intro.html.twig', array(
+                 'user' => $user,));
     }
 
     /**
@@ -366,10 +388,10 @@ class DefaultController extends Controller {
         if (!$user) {
             return $this->redirectToRoute('app_index');
         }
-        
+
         $player = $em->getRepository('AppBundle:Player')
-                    ->find($user['userId']);
-        if(!$player) {
+                ->find($user['userId']);
+        if (!$player) {
             $request->getSession()->invalidate(1);
             return $this->redirectToRoute('app_index');
         } else {
@@ -377,8 +399,8 @@ class DefaultController extends Controller {
             $em->persist($player);
             $em->flush();
         }
-        
-        
+
+
         return $this->render('AppBundle:Default:sologame.html.twig', array(
                     'user' => $user,));
     }

@@ -226,7 +226,7 @@
     <script src="{{asset('bundles/app/js/column.js')}}"></script>
     <script src="{{asset('bundles/app/js/mycomputer.js')}}"></script>
     <script>
-        //polyfill
+        //polyfill for requestanimationFrame
         (function () {
             var lastTime = 0;
             var vendors = ['ms', 'moz', 'webkit', 'o'];
@@ -380,7 +380,7 @@
 
 
 
-
+        //draw the final position of the ball
         function drawCircle(x, y, color, col) {
             var mainCanvas = document.querySelector("#canvas");
             var mainContext = mainCanvas.getContext("2d");
