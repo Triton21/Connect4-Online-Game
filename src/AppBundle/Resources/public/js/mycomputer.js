@@ -3113,7 +3113,7 @@ computerModule = (function (om, bl, rd, al, cl) {
                 var myCol = data.substring(3);
                 triggerDisplay(myCol, userColor, pcColor);
                 setTimeout(function () {
-                    if ($('#playAgain').css('display') == 'none') {
+                    if ($('#victory').css('display') == 'none') {
                         computerMove(pcColor, userColor);
                     }
                 }, 1500);
