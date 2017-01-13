@@ -19,7 +19,8 @@ class DefaultController extends Controller {
     public function indexAction(Request $request) {
         $user = $this->get('session')->get('user');
         if ($user) {
-            return $this->redirectToRoute('app_main');
+            //return $this->redirectToRoute('app_main');
+            return $this->redirect($this->generateUrl('app_main'));
         }
 
         $player = new Player();
@@ -65,14 +66,16 @@ class DefaultController extends Controller {
         //check if the session still exist
         $user = $this->get('session')->get('user');
         if (!$user) {
-            return $this->redirectToRoute('app_index');
+            //return $this->redirectToRoute('app_index');
+            return $this->redirect($this->generateUrl('app_index'));
         }
         //check if the user entity still exist or has been disabled
         $userCheck = $em->getRepository('AppBundle:Player')
                 ->find($user['userId']);
         if (!$userCheck) {
             $request->getSession()->invalidate(1);
-            return $this->redirectToRoute('app_index');
+            return $this->redirect($this->generateUrl('app_index'));
+            //return $this->redirectToRoute('app_index');
         }
         
         return $this->render('AppBundle:Default:intro.html.twig', array(
@@ -87,7 +90,8 @@ class DefaultController extends Controller {
         //check if the session still exist
         $user = $this->get('session')->get('user');
         if (!$user) {
-            return $this->redirectToRoute('app_index');
+            //return $this->redirectToRoute('app_index');
+            return $this->redirect($this->generateUrl('app_index'));
         }
         //var_dump($user);die;
         //check if the user entity still exist or has been disabled
@@ -95,7 +99,8 @@ class DefaultController extends Controller {
                 ->find($user['userId']);
         if (!$userCheck) {
             $request->getSession()->invalidate(1);
-            return $this->redirectToRoute('app_index');
+            return $this->redirect($this->generateUrl('app_index'));
+            //return $this->redirectToRoute('app_index');
         }
         //set player status to Online (1)
         $player = $em->getRepository('AppBundle:Player')
@@ -376,7 +381,8 @@ class DefaultController extends Controller {
             }
         }
         $request->getSession()->invalidate(1);
-        return $this->redirectToRoute('app_index');
+        //return $this->redirectToRoute('app_index');
+        return $this->redirect($this->generateUrl('app_index'));
     }
 
     /**
@@ -386,14 +392,16 @@ class DefaultController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('session')->get('user');
         if (!$user) {
-            return $this->redirectToRoute('app_index');
+            //return $this->redirectToRoute('app_index');
+            return $this->redirect($this->generateUrl('app_index'));
         }
 
         $player = $em->getRepository('AppBundle:Player')
                 ->find($user['userId']);
         if (!$player) {
             $request->getSession()->invalidate(1);
-            return $this->redirectToRoute('app_index');
+            return $this->redirect($this->generateUrl('app_index'));
+            //return $this->redirectToRoute('app_index');
         } else {
             $player->setStatus(3);
             $em->persist($player);
@@ -412,7 +420,8 @@ class DefaultController extends Controller {
         //check if the session still exist
         $user = $this->get('session')->get('user');
         if (!$user) {
-            return $this->redirectToRoute('app_index');
+            //return $this->redirectToRoute('app_index');
+            return $this->redirect($this->generateUrl('app_index'));
         }
         $myId = $user['userId'];
         //check if the user entity still exist or has been disabled
@@ -421,7 +430,8 @@ class DefaultController extends Controller {
                 ->find($myId);
         if (!$userCheck) {
             $request->getSession()->invalidate(1);
-            return $this->redirectToRoute('app_index');
+            return $this->redirect($this->generateUrl('app_index'));
+            //return $this->redirectToRoute('app_index');
         }
 
 
