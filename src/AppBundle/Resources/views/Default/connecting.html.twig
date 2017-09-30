@@ -75,6 +75,7 @@
                     success: function (response) {
                         if (response !== "'no result'") {
                             console.log(response);
+                            //only works for production
                             window.location.href = '../sologame';
                         }
                         if (response == 'opponent exist') {
