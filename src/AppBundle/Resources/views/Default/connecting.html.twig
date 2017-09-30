@@ -73,8 +73,9 @@
                     url: "{{ path('app_ajaxconnecting')}}",
                     dataType: "json",
                     success: function (response) {
-                        if (response !== 'no result') {
+                        if (response !== "'no result'") {
                             console.log(response);
+                            window.location.href = '../sologame';
                         }
                         if (response == 'opponent exist') {
                             window.location.href = "{{ path('app_game')}}";
